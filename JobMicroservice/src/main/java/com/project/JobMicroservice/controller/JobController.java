@@ -23,7 +23,7 @@ public class JobController {
     }
 
     @GetMapping
-    public ResponseEntity<List<JobRes>> getHello(){
+    public ResponseEntity<List<JobRes>> getAllJobs(){
         List<JobRes> list = iJobService.findAll();
         if(list.isEmpty()){
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
