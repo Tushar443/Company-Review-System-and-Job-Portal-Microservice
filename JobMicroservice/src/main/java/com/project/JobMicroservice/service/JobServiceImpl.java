@@ -1,36 +1,79 @@
 package com.project.JobMicroservice.service;
 
+import com.project.JobMicroservice.dao.beans.Job;
 import com.project.JobMicroservice.dao.request.JobReq;
+import com.project.JobMicroservice.dao.response.JobRes;
+import com.project.JobMicroservice.repository.JobRepo;
+import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
 
 @Service
 public class JobServiceImpl implements IJobService{
-    List<JobReq> arr = new ArrayList<>();
+
+    JobRepo jobRepo;
+
+    public JobServiceImpl(JobRepo jobRepo) {
+        this.jobRepo = jobRepo;
+    }
+
     @Override
-    public List<JobReq> findAll() {
-        return arr;
+    public List<JobRes> findAll() {
+        List<Job> list = jobRepo.findAll();
+        List<JobRes> resList = new ArrayList<>();
+        for(Job job : list){
+            JobRes jobRes = new JobRes();
+            BeanUtils.copyProperties(job,jobRes);
+            resList.add(jobRes);
+        }
+        return resList;
     }
 
     @Override
     public void createJob(List<JobReq> list) {
-        list.forEach(a-> arr.add(a));
+        for (JobReq jobReq : list) {
+            Job job = new Job();
+            BeanUtils.copyProperties(jobReq,job);
+            jobRepo.save(job);
+        }
     }
 
     @Override
-    public void updateJob(JobReq job) {
+    public boolean updateJob(long id ,JobReq updatedJob) {
+        Optional<Job> job= jobRepo.findById(id);
+            if(job.isPresent()){
+                Job oldJob = job.get();
+                BeanUtils.copyProperties(updatedJob,oldJob);
+                jobRepo.save(oldJob);
+                return true;
+            }
 
+        return false;
     }
 
     @Override
-    public JobReq getJobByID(int id) {
-       Optional<JobReq> job = arr.stream().filter(jobReq -> jobReq.getId() == id).findAny();
+    public JobRes getJobByID(long id) {
+       Optional<Job> job= jobRepo.findById(id);
+       JobRes jobRes = new JobRes();
        if(job.isPresent()){
-           return job.get();
+           BeanUtils.copyProperties(job.get(),jobRes);
+           return jobRes;
        }
-       return null;
+       return jobRes;
+    }
+
+    @Override
+    public boolean deleteJobById(long id) {
+        Optional<Job> job= jobRepo.findById(id);
+        if(job.isPresent()) {
+            Job oldJob = job.get();
+            jobRepo.delete(oldJob);
+            return true;
+        }
+        return false;
     }
 }

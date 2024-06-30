@@ -1,17 +1,19 @@
 package com.project.JobMicroservice.service;
 
 import com.project.JobMicroservice.dao.request.JobReq;
+import com.project.JobMicroservice.dao.response.JobRes;
 
 import java.util.List;
-import java.util.Optional;
 
 public interface IJobService {
 
-    List<JobReq> findAll();
+    List<JobRes> findAll();
 
     void createJob(List<JobReq> list);
 
-    void updateJob(JobReq job);
+    boolean updateJob(long id ,JobReq job);
 
-    JobReq getJobByID(int id);
+    JobRes getJobByID(long id);
+
+    boolean deleteJobById(long id);
 }
