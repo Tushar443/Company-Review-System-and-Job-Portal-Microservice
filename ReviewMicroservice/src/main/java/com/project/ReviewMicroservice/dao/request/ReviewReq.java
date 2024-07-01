@@ -1,28 +1,10 @@
-package com.project.ReviewMicroservice.dao.beans;
+package com.project.ReviewMicroservice.dao.request;
 
-import jakarta.persistence.*;
-
-@Entity
-@Table(name = "review")
-public class Review {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+public class ReviewReq {
     private String title;
     private String description;
     private double rating;
     private Long companyId;
-
-    public Review() {
-    }
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
 
     public String getTitle() {
         return title;
