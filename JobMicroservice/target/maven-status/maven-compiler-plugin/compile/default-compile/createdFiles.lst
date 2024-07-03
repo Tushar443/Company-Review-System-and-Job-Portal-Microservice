@@ -1,0 +1,8 @@
+com\project\JobMicroservice\JobMicroserviceApplication.class
+com\project\JobMicroservice\controller\JobController.class
+com\project\JobMicroservice\repository\JobRepo.class
+com\project\JobMicroservice\dao\response\JobRes.class
+com\project\JobMicroservice\dao\beans\Job.class
+com\project\JobMicroservice\dao\request\JobReq.class
+com\project\JobMicroservice\service\JobServiceImpl.class
+com\project\JobMicroservice\service\IJobService.class
