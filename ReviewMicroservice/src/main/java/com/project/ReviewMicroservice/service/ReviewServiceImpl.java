@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ReviewServiceImpl implements IReviewService{
@@ -32,10 +33,11 @@ public class ReviewServiceImpl implements IReviewService{
     }
 
     @Override
-    public ReviewRes getReviewById(long reviewId, long companyId) {
-        Review review = reviewRepo.findAllByIdAndCompanyId(reviewId,companyId);
+    public ReviewRes getReviewById(long reviewId) {
+        Optional<Review> optionalReview = reviewRepo.findById(reviewId);
         ReviewRes reviewRes = new ReviewRes();
-        if(review != null){
+        if(optionalReview.isPresent()){
+            Review review = optionalReview.get();
             BeanUtils.copyProperties(review,reviewRes);
             return reviewRes;
         }
@@ -53,12 +55,12 @@ public class ReviewServiceImpl implements IReviewService{
     }
 
     @Override
-    public boolean updateReview(long reviewId, long companyId, ReviewReq updateReviewReq) {
-        Review review = reviewRepo.findAllByIdAndCompanyId(reviewId,companyId);
-        updateReviewReq.setCompanyId(companyId);
-        if(review != null){
+    public boolean updateReview(long reviewId, ReviewReq updateReviewReq) {
+        Optional<Review> optionalReview = reviewRepo.findById(reviewId);
+        ReviewRes reviewRes = new ReviewRes();
+        if(optionalReview.isPresent()){
+            Review review = optionalReview.get();
             BeanUtils.copyProperties(updateReviewReq,review);
-
             reviewRepo.save(review);
             return true;
         }
@@ -66,9 +68,10 @@ public class ReviewServiceImpl implements IReviewService{
     }
 
     @Override
-    public boolean deleteReview(long reviewId, long companyId) {
-        Review review = reviewRepo.findAllByIdAndCompanyId(reviewId,companyId);
-        if(review != null){
+    public boolean deleteReview(long reviewId) {
+        Optional<Review> optionalReview = reviewRepo.findById(reviewId);
+        if(optionalReview.isPresent()){
+            Review review = optionalReview.get();
             reviewRepo.delete(review);
             return true;
         }

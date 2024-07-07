@@ -12,8 +12,8 @@ public class Company {
     private long id ;
     private String name;
     private String description;
-    private List<Long> jobId;
-    private List<Long> reviewId;
+    private List<Long> jobsId;
+    private List<Long> reviewsId;
     public Company() {
     }
 
@@ -41,19 +41,19 @@ public class Company {
         this.description = description;
     }
 
-    public List<Long> getJobId() {
-        return jobId;
+    public List<Long> getJobsId() {
+        return jobsId;
     }
 
-    public void setJobId(List<Long> jobId) {
-        this.jobId = jobId;
+    public void setJobsId(List<Long> jobsId) {
+        this.jobsId = jobsId;
     }
 
-    public List<Long> getReviewId() {
-        return reviewId;
+    public List<Long> getReviewsId() {
+        return reviewsId;
     }
 
-    public void setReviewId(List<Long> reviewId) {
-        this.reviewId = reviewId;
+    public void setReviewsId(List<Long> reviewsId) {
+        this.reviewsId = reviewsId;
     }
 }

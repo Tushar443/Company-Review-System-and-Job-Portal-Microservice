@@ -38,6 +38,8 @@ public class CompanyServiceImpl implements ICompanyService{
         for(CompanyReq companyReq : companyReqList ){
             Company company = new Company();
             BeanUtils.copyProperties(companyReq,company);
+            company.setReviewsId(companyReq.getReviewsId());
+            company.setJobsId(companyReq.getJobsId());
             companyRepo.save(company);
         }
         return true;

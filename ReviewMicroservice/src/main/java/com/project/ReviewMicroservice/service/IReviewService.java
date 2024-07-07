@@ -8,11 +8,11 @@ import java.util.List;
 public interface IReviewService {
     List<ReviewRes> findAll(long companyId);
 
-    ReviewRes getReviewById(long reviewId, long companyId);
+    ReviewRes getReviewById(long reviewId);
 
     void addReview(long companyId, List<ReviewReq> reviewReq);
 
-    boolean updateReview(long reviewId, long companyId, ReviewReq updateReviewReq);
+    boolean updateReview(long reviewId, ReviewReq updateReviewReq);
 
-    boolean deleteReview(long reviewId, long companyId);
+    boolean deleteReview(long reviewId);
 }
