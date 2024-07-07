@@ -1,2 +1,1 @@
-select * from job j;
-select * from company ;
+select * from job j;select * from company ;

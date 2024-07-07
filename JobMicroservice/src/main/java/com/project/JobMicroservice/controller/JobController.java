@@ -1,16 +1,13 @@
 package com.project.JobMicroservice.controller;
 
-import com.project.JobMicroservice.dao.request.JobReq;
-import com.project.JobMicroservice.dao.response.JobRes;
+import com.project.JobMicroservice.dto.request.JobReq;
+import com.project.JobMicroservice.dto.response.JobRes;
 import com.project.JobMicroservice.service.IJobService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.NoSuchElementException;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/jobs")

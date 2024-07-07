@@ -1,4 +1,4 @@
-package com.project.JobMicroservice.dao.beans;
+package com.project.JobMicroservice.beans;
 
 import jakarta.persistence.*;
 import jdk.jfr.Enabled;

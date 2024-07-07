@@ -1,7 +1,7 @@
 package com.project.JobMicroservice.service;
 
-import com.project.JobMicroservice.dao.request.JobReq;
-import com.project.JobMicroservice.dao.response.JobRes;
+import com.project.JobMicroservice.dto.request.JobReq;
+import com.project.JobMicroservice.dto.response.JobRes;
 
 import java.util.List;
 

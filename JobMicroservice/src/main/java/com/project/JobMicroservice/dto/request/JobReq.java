@@ -1,20 +1,11 @@
-package com.project.JobMicroservice.dao.response;
+package com.project.JobMicroservice.dto.request;
 
-public class JobRes {
-    private long id;
+public class JobReq {
     private String title;
     private String description;
     private String minSalary;
     private String maxSalary;
     private String location;
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
 
     public String getTitle() {
         return title;
