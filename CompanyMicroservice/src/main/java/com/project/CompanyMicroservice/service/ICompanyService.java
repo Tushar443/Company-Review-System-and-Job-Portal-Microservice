@@ -1,7 +1,7 @@
 package com.project.CompanyMicroservice.service;
 
-import com.project.CompanyMicroservice.dao.request.CompanyReq;
-import com.project.CompanyMicroservice.dao.response.CompanyRes;
+import com.project.CompanyMicroservice.dto.request.CompanyReq;
+import com.project.CompanyMicroservice.dto.response.CompanyRes;
 
 import java.util.List;
 

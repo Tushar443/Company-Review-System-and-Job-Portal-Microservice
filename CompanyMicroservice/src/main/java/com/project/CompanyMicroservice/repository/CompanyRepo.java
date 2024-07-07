@@ -1,6 +1,6 @@
 package com.project.CompanyMicroservice.repository;
 
-import com.project.CompanyMicroservice.dao.beans.Company;
+import com.project.CompanyMicroservice.beans.Company;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

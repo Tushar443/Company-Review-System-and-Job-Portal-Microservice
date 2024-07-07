@@ -1,4 +1,4 @@
-package com.project.CompanyMicroservice.dao.beans;
+package com.project.CompanyMicroservice.beans;
 
 import jakarta.persistence.*;
 
@@ -12,8 +12,8 @@ public class Company {
     private long id ;
     private String name;
     private String description;
-    private List<Long> jobs;
-
+    private List<Long> jobId;
+    private List<Long> reviewId;
     public Company() {
     }
 
@@ -41,11 +41,19 @@ public class Company {
         this.description = description;
     }
 
-    public List<Long> getJobs() {
-        return jobs;
+    public List<Long> getJobId() {
+        return jobId;
     }
 
-    public void setJobs(List<Long> jobs) {
-        this.jobs = jobs;
+    public void setJobId(List<Long> jobId) {
+        this.jobId = jobId;
+    }
+
+    public List<Long> getReviewId() {
+        return reviewId;
+    }
+
+    public void setReviewId(List<Long> reviewId) {
+        this.reviewId = reviewId;
     }
 }

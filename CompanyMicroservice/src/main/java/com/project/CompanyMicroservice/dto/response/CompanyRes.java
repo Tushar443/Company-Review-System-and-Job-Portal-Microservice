@@ -1,4 +1,4 @@
-package com.project.CompanyMicroservice.dao.response;
+package com.project.CompanyMicroservice.dto.response;
 
 import java.util.List;
 

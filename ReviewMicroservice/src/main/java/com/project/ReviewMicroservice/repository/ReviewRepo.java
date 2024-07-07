@@ -1,6 +1,6 @@
 package com.project.ReviewMicroservice.repository;
 
-import com.project.ReviewMicroservice.dao.beans.Review;
+import com.project.ReviewMicroservice.beans.Review;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

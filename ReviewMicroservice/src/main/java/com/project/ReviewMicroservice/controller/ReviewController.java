@@ -1,7 +1,7 @@
 package com.project.ReviewMicroservice.controller;
 
-import com.project.ReviewMicroservice.dao.request.ReviewReq;
-import com.project.ReviewMicroservice.dao.response.ReviewRes;
+import com.project.ReviewMicroservice.dto.request.ReviewReq;
+import com.project.ReviewMicroservice.dto.response.ReviewRes;
 import com.project.ReviewMicroservice.service.IReviewService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

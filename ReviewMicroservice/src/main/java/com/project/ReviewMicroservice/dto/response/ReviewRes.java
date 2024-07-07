@@ -1,6 +1,6 @@
-package com.project.ReviewMicroservice.dao.request;
+package com.project.ReviewMicroservice.dto.response;
 
-public class ReviewReq {
+public class ReviewRes {
     private String title;
     private String description;
     private double rating;

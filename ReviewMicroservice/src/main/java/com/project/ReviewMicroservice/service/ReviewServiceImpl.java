@@ -1,8 +1,8 @@
 package com.project.ReviewMicroservice.service;
 
-import com.project.ReviewMicroservice.dao.beans.Review;
-import com.project.ReviewMicroservice.dao.request.ReviewReq;
-import com.project.ReviewMicroservice.dao.response.ReviewRes;
+import com.project.ReviewMicroservice.beans.Review;
+import com.project.ReviewMicroservice.dto.request.ReviewReq;
+import com.project.ReviewMicroservice.dto.response.ReviewRes;
 import com.project.ReviewMicroservice.repository.ReviewRepo;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;

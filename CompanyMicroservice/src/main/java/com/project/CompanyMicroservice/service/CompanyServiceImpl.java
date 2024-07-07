@@ -1,10 +1,9 @@
 package com.project.CompanyMicroservice.service;
 
-import com.project.CompanyMicroservice.dao.beans.Company;
-import com.project.CompanyMicroservice.dao.request.CompanyReq;
-import com.project.CompanyMicroservice.dao.response.CompanyRes;
+import com.project.CompanyMicroservice.beans.Company;
+import com.project.CompanyMicroservice.dto.request.CompanyReq;
+import com.project.CompanyMicroservice.dto.response.CompanyRes;
 import com.project.CompanyMicroservice.repository.CompanyRepo;
-import org.springframework.aop.framework.autoproxy.BeanNameAutoProxyCreator;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 

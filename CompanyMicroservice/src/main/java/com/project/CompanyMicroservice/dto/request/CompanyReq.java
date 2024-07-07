@@ -1,4 +1,4 @@
-package com.project.CompanyMicroservice.dao.request;
+package com.project.CompanyMicroservice.dto.request;
 
 import java.util.List;
 

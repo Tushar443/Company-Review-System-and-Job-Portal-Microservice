@@ -1,4 +1,4 @@
-package com.project.ReviewMicroservice.dao.beans;
+package com.project.ReviewMicroservice.beans;
 
 import jakarta.persistence.*;
 

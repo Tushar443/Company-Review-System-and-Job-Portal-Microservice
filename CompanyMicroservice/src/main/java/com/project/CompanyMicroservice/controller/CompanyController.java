@@ -1,7 +1,7 @@
 package com.project.CompanyMicroservice.controller;
 
-import com.project.CompanyMicroservice.dao.request.CompanyReq;
-import com.project.CompanyMicroservice.dao.response.CompanyRes;
+import com.project.CompanyMicroservice.dto.request.CompanyReq;
+import com.project.CompanyMicroservice.dto.response.CompanyRes;
 import com.project.CompanyMicroservice.service.ICompanyService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
