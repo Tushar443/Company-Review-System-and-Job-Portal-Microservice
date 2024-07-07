@@ -6,7 +6,7 @@ public class JobReq {
     private String minSalary;
     private String maxSalary;
     private String location;
-
+    private Long companyId;
     public String getTitle() {
         return title;
     }
@@ -45,5 +45,13 @@ public class JobReq {
 
     public void setMaxSalary(String maxSalary) {
         this.maxSalary = maxSalary;
+    }
+
+    public Long getCompanyId() {
+        return companyId;
+    }
+
+    public void setCompanyId(Long companyId) {
+        this.companyId = companyId;
     }
 }
