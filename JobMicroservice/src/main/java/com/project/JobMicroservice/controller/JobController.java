@@ -1,7 +1,7 @@
 package com.project.JobMicroservice.controller;
 
 import com.project.JobMicroservice.dto.request.JobReq;
-import com.project.JobMicroservice.dto.response.JobRes;
+import com.project.JobMicroservice.dto.response.JobCompanyReviewDTO;
 import com.project.JobMicroservice.service.IJobService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,8 +20,8 @@ public class JobController {
     }
 
     @GetMapping
-    public ResponseEntity<List<JobRes>> getAllJobs(){
-        List<JobRes> list = iJobService.findAll();
+    public ResponseEntity<List<JobCompanyReviewDTO>> getAllJobs(){
+        List<JobCompanyReviewDTO> list = iJobService.findAll();
         if(list.isEmpty()){
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
@@ -34,8 +34,8 @@ public class JobController {
          return new ResponseEntity<>("Job add Successfully",HttpStatus.CREATED);
     }
     @GetMapping("/{id}")
-    public ResponseEntity<JobRes> getJobById(@PathVariable int id){
-       JobRes jobRes = iJobService.getJobByID(id);
+    public ResponseEntity<JobCompanyReviewDTO> getJobById(@PathVariable int id){
+       JobCompanyReviewDTO jobRes = iJobService.getJobByID(id);
        return new ResponseEntity<>(jobRes,HttpStatus.OK);
     }
 

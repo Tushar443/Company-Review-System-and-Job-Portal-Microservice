@@ -1,13 +1,16 @@
 package com.project.JobMicroservice.dto.response;
 
-public class JobRes {
+import java.util.List;
+
+public class JobCompanyReviewDTO {
     private long id;
     private String title;
     private String description;
     private String minSalary;
     private String maxSalary;
     private String location;
-    private Long companyId;
+    private CompanyRes companyRes;
+    private List<ReviewRes> reviewRes;
 
     public long getId() {
         return id;
@@ -57,11 +60,19 @@ public class JobRes {
         this.maxSalary = maxSalary;
     }
 
-    public Long getCompanyId() {
-        return companyId;
+    public CompanyRes getCompanyRes() {
+        return companyRes;
     }
 
-    public void setCompanyId(Long companyId) {
-        this.companyId = companyId;
+    public void setCompanyRes(CompanyRes companyRes) {
+        this.companyRes = companyRes;
+    }
+
+    public List<ReviewRes> getReviewRes() {
+        return reviewRes;
+    }
+
+    public void setReviewRes(List<ReviewRes> reviewRes) {
+        this.reviewRes = reviewRes;
     }
 }
