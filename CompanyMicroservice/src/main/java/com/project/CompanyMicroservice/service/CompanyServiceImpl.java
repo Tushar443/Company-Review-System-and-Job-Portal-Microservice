@@ -7,8 +7,11 @@ import com.project.CompanyMicroservice.dto.request.CompanyReq;
 import com.project.CompanyMicroservice.dto.request.JobReq;
 import com.project.CompanyMicroservice.dto.request.ReviewReq;
 import com.project.CompanyMicroservice.dto.response.CompanyRes;
+import com.project.CompanyMicroservice.dto.response.JobRes;
+import com.project.CompanyMicroservice.dto.response.ReviewRes;
 import com.project.CompanyMicroservice.repository.CompanyRepo;
 import org.springframework.beans.BeanUtils;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -35,12 +38,26 @@ public class CompanyServiceImpl implements ICompanyService {
         List<Company> companyList = companyRepo.findAll();
         List<CompanyRes> companyResList = new ArrayList<>();
         for (Company company : companyList) {
-            CompanyRes companyRes = new CompanyRes();
-            BeanUtils.copyProperties(company, companyRes);
+            CompanyRes companyRes = getCompanyResObject(company);
             companyResList.add(companyRes);
         }
         return companyResList;
     }
+
+    private CompanyRes getCompanyResObject(Company company){
+        CompanyRes companyRes = new CompanyRes();
+        BeanUtils.copyProperties(company, companyRes);
+        for(Long jobId : company.getJobsId()){
+            JobRes body = jobClient.getJobById(jobId).getBody();
+            companyRes.getJobs().add(body);
+        }
+        for(Long reviewId : company.getReviewsId()){
+            ReviewRes reviewRes = reviewClient.getReviewById(reviewId).getBody();
+            companyRes.getReviews().add(reviewRes);
+        }
+        return companyRes;
+    }
+
 
     @Override
     public boolean addCompany(CompanyReq companyReq) {
@@ -75,7 +92,7 @@ public class CompanyServiceImpl implements ICompanyService {
         CompanyRes companyRes = new CompanyRes();
         if (company.isPresent()) {
             Company entity = company.get();
-            BeanUtils.copyProperties(entity, companyRes);
+            companyRes = getCompanyResObject(entity);
         }
         return companyRes;
     }

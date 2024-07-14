@@ -33,7 +33,7 @@ public class JobController {
         return iJobService.createJob(jobReq);
     }
     @GetMapping("{id}")
-    public ResponseEntity<JobRes> getJobById(@PathVariable int id){
+    public ResponseEntity<JobRes> getJobById(@PathVariable Long id){
        JobRes jobRes = iJobService.getJobByID(id);
        return new ResponseEntity<>(jobRes,HttpStatus.OK);
     }

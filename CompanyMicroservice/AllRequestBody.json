@@ -1,0 +1,123 @@
+[{
+  "name" : "Deloitte",
+  "description" : "Service Based",
+  "jobs":
+  [{
+    "title" : "PL Developer",
+    "description" : "Pl SQL developer",
+    "minSalary": "20000",
+    "maxSalary": "100000",
+    "location" : "Banglore"
+  },
+    {
+      "title" : "Lead Developer",
+      "description" : "Lead Java",
+      "minSalary": "20000",
+      "maxSalary": "990000",
+      "location" : "Mumbai"
+    },
+    {
+      "title" : "Back End Developer",
+      "description" : "Bank end",
+      "minSalary": "440000",
+      "maxSalary": "67000000",
+      "location" : "Dehli"
+    }],
+  "reviews":
+  [{
+    "title" : "Nice",
+    "description" : "Nice envirotntmetn",
+    "rating": 1.1
+  },{
+    "title" : "Greate",
+    "description" : "Great Work place",
+    "rating": 3.2
+  },{
+    "title" : "Excellent",
+    "description" : "Excellent envirotntmetn",
+    "rating": 2.3
+  }]
+}
+,
+{
+  "name" : "Sapiens",
+  "description" : "insurance Based",
+  "jobs":
+  [{
+    "title" : "Associate Developer",
+    "description" : "insurance",
+    "minSalary": "20000",
+    "maxSalary": "100000",
+    "location" : "Banglore"
+  },
+    {
+      "title" : "Application Lead",
+      "description" : "Service",
+      "minSalary": "20000",
+      "maxSalary": "990000",
+      "location" : "Mumbai"
+    },
+    {
+      "title" : "Full Stack",
+      "description" : "Bank",
+      "minSalary": "440000",
+      "maxSalary": "67000000",
+      "location" : "Dehli"
+    }],
+  "reviews":
+  [{
+    "title" : "Bad",
+    "description" : "Bad envirotntmetn",
+    "rating": 1.1
+  },{
+    "title" : "Good",
+    "description" : "Good Work place",
+    "rating": 3.2
+  },{
+    "title" : "Average",
+    "description" : "Average environment",
+    "rating": 2.3
+  }]
+}
+,
+  {
+    "name" : "Accenture",
+    "description" : "Service Based",
+    "jobs":
+    [{
+      "title" : "Application Developer",
+      "description" : "java developer",
+      "minSalary": "20000",
+      "maxSalary": "100000",
+      "location" : "Banglore"
+    },
+      {
+        "title" : "Lead Full Stack Developer",
+        "description" : "Lead Java",
+        "minSalary": "20000",
+        "maxSalary": "990000",
+        "location" : "Mumbai"
+      },
+      {
+        "title" : "Back End java Developer",
+        "description" : "Bank end",
+        "minSalary": "440000",
+        "maxSalary": "67000000",
+        "location" : "Dehli"
+      }],
+    "reviews":
+    [{
+      "title" : "Good People",
+      "description" : "nice people",
+      "rating": 3.3
+    },{
+      "title" : "No technology",
+      "description" : "No New Technology used",
+      "rating": 2.1
+    },{
+      "title" : "Not so good ",
+      "description" : "Excellent envirotntmetn",
+      "rating": 1.1
+    }]
+  }
+]

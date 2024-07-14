@@ -1,12 +1,20 @@
 package com.project.CompanyMicroservice.dto.response;
 
+import com.project.CompanyMicroservice.dto.request.JobReq;
+
+import java.util.ArrayList;
 import java.util.List;
 
 public class CompanyRes {
     private String name;
     private String description;
-    private List<Long> jobsId;
-    private List<Long> reviewsId;
+    private List<JobRes> jobs;
+    private List<ReviewRes> reviews;
+
+    public CompanyRes() {
+        this.jobs = new ArrayList<>();
+        this.reviews = new ArrayList<>();
+    }
 
     public String getName() {
         return name;
@@ -24,19 +32,19 @@ public class CompanyRes {
         this.description = description;
     }
 
-    public List<Long> getJobsId() {
-        return jobsId;
+    public List<JobRes> getJobs() {
+        return jobs;
     }
 
-    public void setJobsId(List<Long> jobsId) {
-        this.jobsId = jobsId;
+    public void setJobs(List<JobRes> jobs) {
+        this.jobs = jobs;
     }
 
-    public List<Long> getReviewsId() {
-        return reviewsId;
+    public List<ReviewRes> getReviews() {
+        return reviews;
     }
 
-    public void setReviewsId(List<Long> reviewsId) {
-        this.reviewsId = reviewsId;
+    public void setReviews(List<ReviewRes> reviews) {
+        this.reviews = reviews;
     }
 }
