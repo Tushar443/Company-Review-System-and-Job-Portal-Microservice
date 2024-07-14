@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/jobs")
+@RequestMapping("/jobs/")
 public class JobController {
 
     IJobService iJobService;
@@ -33,19 +33,19 @@ public class JobController {
          iJobService.createJob(jobReq);
          return new ResponseEntity<>("Job add Successfully",HttpStatus.CREATED);
     }
-    @GetMapping("/{id}")
+    @GetMapping("{id}")
     public ResponseEntity<JobCompanyReviewDTO> getJobById(@PathVariable int id){
        JobCompanyReviewDTO jobRes = iJobService.getJobByID(id);
        return new ResponseEntity<>(jobRes,HttpStatus.OK);
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("{id}")
     public ResponseEntity<String> deleteJobById(@PathVariable int id ){
         boolean deleted = iJobService.deleteJobById(id);
         if(deleted) return new ResponseEntity<String>("Job Deleted", HttpStatus.OK);
         return new ResponseEntity<String>( HttpStatus.NOT_FOUND);
     }
-    @PutMapping("/{id}")
+    @PutMapping("{id}")
     public ResponseEntity<String> updateJob(@PathVariable int id ,@RequestBody JobReq jobReq){
         boolean updated =iJobService.updateJob(id ,jobReq);
         if(updated){

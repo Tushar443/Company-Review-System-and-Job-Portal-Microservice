@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("reviews")
+@RequestMapping("reviews/")
 public class ReviewController {
 
     IReviewService reviewService;
@@ -28,7 +28,7 @@ public class ReviewController {
         return new ResponseEntity<>(reviewRes,HttpStatus.OK);
     }
     //get company By Id
-    @GetMapping("/{reviewId}")
+    @GetMapping("{reviewId}")
     public ResponseEntity<ReviewRes> getReviewByIdAndCompanyId(@PathVariable long reviewId){
         ReviewRes reviewRes = reviewService.getReviewById(reviewId);
         if(reviewRes != null){
@@ -43,7 +43,7 @@ public class ReviewController {
         return new ResponseEntity<>("Company Added",HttpStatus.OK);
     }
     //update
-    @PutMapping("/{reviewId}")
+    @PutMapping("{reviewId}")
     public ResponseEntity<String> updateReview(@PathVariable long reviewId ,@RequestBody ReviewReq updateReviewReq){
         boolean update = reviewService.updateReview(reviewId,updateReviewReq);
         if(update){
@@ -52,7 +52,7 @@ public class ReviewController {
         return new ResponseEntity<>("Not Found",HttpStatus.NOT_FOUND);
     }
     //delete
-    @DeleteMapping("/{reviewId}")
+    @DeleteMapping("{reviewId}")
     public ResponseEntity<String> deleteReviewById(@PathVariable long reviewId ){
         boolean deleted = reviewService.deleteReview(reviewId);
         if(deleted){

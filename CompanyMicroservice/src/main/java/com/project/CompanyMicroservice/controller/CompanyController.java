@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/company")
+@RequestMapping("/company/")
 public class CompanyController {
 
     ICompanyService companyService;
@@ -29,7 +29,7 @@ public class CompanyController {
         return new ResponseEntity<>(companyRes,HttpStatus.OK);
     }
     //get company By Id
-    @GetMapping("/{id}")
+    @GetMapping("{id}")
     public ResponseEntity<CompanyRes> getCompanyById(@PathVariable long id){
         CompanyRes companyRes = companyService.getCompanyById(id);
         if(companyRes != null){
@@ -44,7 +44,7 @@ public class CompanyController {
        return new ResponseEntity<>("Company Added",HttpStatus.OK);
     }
     //update
-    @PutMapping("/{id}")
+    @PutMapping("{id}")
     public ResponseEntity<String> updateCompany(@PathVariable long id ,@RequestBody CompanyReq companyReq){
        boolean update = companyService.updateCompany(id,companyReq);
        if(update){
@@ -53,7 +53,7 @@ public class CompanyController {
        return new ResponseEntity<>("Not Found",HttpStatus.NOT_FOUND);
     }
     //delete
-    @DeleteMapping("/{id}")
+    @DeleteMapping("{id}")
     public ResponseEntity<String> deleteById(@PathVariable long id){
         boolean deleted = companyService.deleteCompany(id);
         if(deleted){
