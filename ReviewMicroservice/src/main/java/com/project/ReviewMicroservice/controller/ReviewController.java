@@ -38,9 +38,9 @@ public class ReviewController {
     }
     //add
     @PostMapping
-    public ResponseEntity<String> addReview(@RequestParam long companyId,@RequestBody ReviewReq reviewReq){
-        reviewService.addReview(companyId,reviewReq);
-        return new ResponseEntity<>("Company Added",HttpStatus.OK);
+    public ResponseEntity<Long> addReview(@RequestParam long companyId,@RequestBody ReviewReq reviewReq){
+        Long reviewId = reviewService.addReview(companyId,reviewReq);
+        return new ResponseEntity<>(reviewId,HttpStatus.OK);
     }
     //update
     @PutMapping("{reviewId}")

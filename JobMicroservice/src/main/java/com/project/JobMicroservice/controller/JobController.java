@@ -29,9 +29,8 @@ public class JobController {
     }
 
     @PostMapping
-    public ResponseEntity<String> addJob(@RequestBody JobReq jobReq){
-         iJobService.createJob(jobReq);
-         return new ResponseEntity<>("Job add Successfully",HttpStatus.CREATED);
+    public Long addJob(@RequestBody JobReq jobReq){
+        return iJobService.createJob(jobReq);
     }
     @GetMapping("{id}")
     public ResponseEntity<JobCompanyReviewDTO> getJobById(@PathVariable int id){

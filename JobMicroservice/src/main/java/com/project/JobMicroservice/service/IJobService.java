@@ -9,7 +9,7 @@ public interface IJobService {
 
     List<JobCompanyReviewDTO> findAll();
 
-    void createJob(JobReq list);
+    Long createJob(JobReq list);
 
     boolean updateJob(long id ,JobReq job);
 

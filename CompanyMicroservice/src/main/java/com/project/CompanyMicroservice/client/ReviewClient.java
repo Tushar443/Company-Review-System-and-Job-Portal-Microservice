@@ -10,5 +10,5 @@ import org.springframework.web.bind.annotation.RequestParam;
 @FeignClient(name = "REVIEWMICROSERVICE")
 public interface ReviewClient {
     @PostMapping("/reviews/")
-    public ResponseEntity<String> addReview(@RequestParam long companyId, @RequestBody ReviewReq reviewReq);
+    ResponseEntity<Long> addReview(@RequestParam long companyId, @RequestBody ReviewReq reviewReq);
 }

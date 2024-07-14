@@ -4,6 +4,7 @@ import com.project.CompanyMicroservice.beans.Company;
 import com.project.CompanyMicroservice.client.JobClient;
 import com.project.CompanyMicroservice.client.ReviewClient;
 import com.project.CompanyMicroservice.dto.request.CompanyReq;
+import com.project.CompanyMicroservice.dto.request.JobReq;
 import com.project.CompanyMicroservice.dto.request.ReviewReq;
 import com.project.CompanyMicroservice.dto.response.CompanyRes;
 import com.project.CompanyMicroservice.repository.CompanyRepo;
@@ -50,12 +51,17 @@ public class CompanyServiceImpl implements ICompanyService {
             BeanUtils.copyProperties(companyReq, company);
             Company saveCompany = companyRepo.save(company);
             // call job microservice
-            companyReq.getJobs().forEach(jobReq -> {
+            for (JobReq jobReq : companyReq.getJobs()) {
                 jobReq.setCompanyId(saveCompany.getId());
-                jobClient.addJob(jobReq);
-            });
+                Long body = jobClient.addJob(jobReq).getBody();
+                saveCompany.getJobsId().add(body);
+            }
             // call review microservice
-            companyReq.getReviews().forEach(reviewReq -> reviewClient.addReview(saveCompany.getId(), reviewReq));
+            for(ReviewReq reviewReq: companyReq.getReviews()){
+               Long reviewId = reviewClient.addReview(saveCompany.getId(), reviewReq).getBody();
+               saveCompany.getReviewsId().add(reviewId);
+            }
+            companyRepo.save(saveCompany);
             flag = true;
         } else {
             flag = false;

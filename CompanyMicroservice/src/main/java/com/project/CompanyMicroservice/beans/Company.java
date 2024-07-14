@@ -2,6 +2,7 @@ package com.project.CompanyMicroservice.beans;
 
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -15,6 +16,8 @@ public class Company {
     private List<Long> jobsId;
     private List<Long> reviewsId;
     public Company() {
+        jobsId = new ArrayList<>();
+        reviewsId = new ArrayList<>();
     }
 
     public long getId() {

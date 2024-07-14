@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class ReviewServiceImpl implements IReviewService{
+public class ReviewServiceImpl implements IReviewService {
 
     ReviewRepo reviewRepo;
 
@@ -24,9 +24,9 @@ public class ReviewServiceImpl implements IReviewService{
     public List<ReviewRes> findAll(long companyId) {
         List<Review> list = reviewRepo.findAllByCompanyId(companyId);
         List<ReviewRes> reviewResList = new ArrayList<>();
-        for(Review review : list){
+        for (Review review : list) {
             ReviewRes reviewRes = new ReviewRes();
-            BeanUtils.copyProperties(review,reviewRes);
+            BeanUtils.copyProperties(review, reviewRes);
             reviewResList.add(reviewRes);
         }
         return reviewResList;
@@ -36,29 +36,30 @@ public class ReviewServiceImpl implements IReviewService{
     public ReviewRes getReviewById(long reviewId) {
         Optional<Review> optionalReview = reviewRepo.findById(reviewId);
         ReviewRes reviewRes = new ReviewRes();
-        if(optionalReview.isPresent()){
+        if (optionalReview.isPresent()) {
             Review review = optionalReview.get();
-            BeanUtils.copyProperties(review,reviewRes);
+            BeanUtils.copyProperties(review, reviewRes);
             return reviewRes;
         }
         return reviewRes;
     }
 
     @Override
-    public void addReview(long companyId, ReviewReq reviewReq) {
-            Review review = new Review();
-            BeanUtils.copyProperties(reviewReq,review);
-            review.setCompanyId(companyId);
-            reviewRepo.save(review);
+    public Long addReview(long companyId, ReviewReq reviewReq) {
+        Review review = new Review();
+        BeanUtils.copyProperties(reviewReq, review);
+        review.setCompanyId(companyId);
+        Review save = reviewRepo.save(review);
+        return save.getId();
     }
 
     @Override
     public boolean updateReview(long reviewId, ReviewReq updateReviewReq) {
         Optional<Review> optionalReview = reviewRepo.findById(reviewId);
         ReviewRes reviewRes = new ReviewRes();
-        if(optionalReview.isPresent()){
+        if (optionalReview.isPresent()) {
             Review review = optionalReview.get();
-            BeanUtils.copyProperties(updateReviewReq,review);
+            BeanUtils.copyProperties(updateReviewReq, review);
             reviewRepo.save(review);
             return true;
         }
@@ -68,7 +69,7 @@ public class ReviewServiceImpl implements IReviewService{
     @Override
     public boolean deleteReview(long reviewId) {
         Optional<Review> optionalReview = reviewRepo.findById(reviewId);
-        if(optionalReview.isPresent()){
+        if (optionalReview.isPresent()) {
             Review review = optionalReview.get();
             reviewRepo.delete(review);
             return true;
