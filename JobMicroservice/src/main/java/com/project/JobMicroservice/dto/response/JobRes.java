@@ -2,7 +2,7 @@ package com.project.JobMicroservice.dto.response;
 
 import java.util.List;
 
-public class JobCompanyReviewDTO {
+public class JobRes {
     private long id;
     private String title;
     private String description;

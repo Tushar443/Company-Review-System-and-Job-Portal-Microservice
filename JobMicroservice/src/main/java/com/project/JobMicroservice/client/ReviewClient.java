@@ -10,6 +10,6 @@ import java.util.List;
 
 @FeignClient(name = "REVIEWMICROSERVICE")
 public interface ReviewClient {
-    @GetMapping("/reviews")
+    @GetMapping("/reviews/")
     ResponseEntity<List<ReviewRes>> getAllReviews(@RequestParam long companyId);
 }

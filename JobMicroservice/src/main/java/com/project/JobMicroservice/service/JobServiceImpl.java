@@ -5,7 +5,7 @@ import com.project.JobMicroservice.client.CompanyClient;
 import com.project.JobMicroservice.client.ReviewClient;
 import com.project.JobMicroservice.dto.request.JobReq;
 import com.project.JobMicroservice.dto.response.CompanyRes;
-import com.project.JobMicroservice.dto.response.JobCompanyReviewDTO;
+import com.project.JobMicroservice.dto.response.JobRes;
 import com.project.JobMicroservice.dto.response.ReviewRes;
 import com.project.JobMicroservice.repository.JobRepo;
 import org.springframework.beans.BeanUtils;
@@ -32,12 +32,12 @@ public class JobServiceImpl implements IJobService{
     }
 
     @Override
-    public List<JobCompanyReviewDTO> findAll() {
+    public List<JobRes> findAll() {
         List<Job> list = jobRepo.findAll();
         return list.stream().map(job -> {
             CompanyRes companyRes = companyClient.getCompanyById(job.getCompanyId());
             ResponseEntity<List<ReviewRes>> allReviews = reviewClient.getAllReviews(job.getCompanyId());
-            JobCompanyReviewDTO jobCompanyReviewDTO = new JobCompanyReviewDTO();
+            JobRes jobCompanyReviewDTO = new JobRes();
             BeanUtils.copyProperties(job,jobCompanyReviewDTO);
             jobCompanyReviewDTO.setCompanyRes(companyRes);
             jobCompanyReviewDTO.setReviewRes(allReviews.getBody());
@@ -66,9 +66,9 @@ public class JobServiceImpl implements IJobService{
     }
 
     @Override
-    public JobCompanyReviewDTO getJobByID(long id) {
+    public JobRes getJobByID(long id) {
        Optional<Job> job= jobRepo.findById(id);
-       JobCompanyReviewDTO jobRes = new JobCompanyReviewDTO();
+       JobRes jobRes = new JobRes();
        if(job.isPresent()){
            BeanUtils.copyProperties(job.get(),jobRes);
            return jobRes;
