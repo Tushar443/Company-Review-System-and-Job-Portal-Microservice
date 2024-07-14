@@ -39,9 +39,12 @@ public class CompanyController {
     }
     //add
     @PostMapping
-    public ResponseEntity<String> addCompany(@RequestBody List<CompanyReq> companyReq){
-       companyService.addCompany(companyReq);
-       return new ResponseEntity<>("Company Added",HttpStatus.OK);
+    public ResponseEntity<String> addCompany(@RequestBody CompanyReq companyReq){
+        boolean isAdded = companyService.addCompany(companyReq);
+        if (isAdded){
+            return new ResponseEntity<>("Company Added",HttpStatus.OK);
+        }
+        return new ResponseEntity<>("Company Existed ",HttpStatus.CONFLICT);
     }
     //update
     @PutMapping("{id}")

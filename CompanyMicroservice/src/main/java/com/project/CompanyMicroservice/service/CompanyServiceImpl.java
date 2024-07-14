@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class CompanyServiceImpl implements ICompanyService{
+public class CompanyServiceImpl implements ICompanyService {
 
     CompanyRepo companyRepo;
 
@@ -25,43 +25,48 @@ public class CompanyServiceImpl implements ICompanyService{
     public List<CompanyRes> findAll() {
         List<Company> companyList = companyRepo.findAll();
         List<CompanyRes> companyResList = new ArrayList<>();
-        for (Company company : companyList){
+        for (Company company : companyList) {
             CompanyRes companyRes = new CompanyRes();
-            BeanUtils.copyProperties(company,companyRes);
+            BeanUtils.copyProperties(company, companyRes);
             companyResList.add(companyRes);
         }
         return companyResList;
     }
 
     @Override
-    public boolean addCompany(List<CompanyReq> companyReqList) {
-        for(CompanyReq companyReq : companyReqList ){
+    public boolean addCompany(CompanyReq companyReq) {
+        boolean flag;
+        Company dbCompany = companyRepo.findByName(companyReq.getName());
+        if (dbCompany != null) {
             Company company = new Company();
-            BeanUtils.copyProperties(companyReq,company);
+            BeanUtils.copyProperties(companyReq, company);
             company.setReviewsId(companyReq.getReviewsId());
             company.setJobsId(companyReq.getJobsId());
             companyRepo.save(company);
+            flag = true;
+        } else {
+            flag = false;
         }
-        return true;
+        return flag;
     }
 
     @Override
     public CompanyRes getCompanyById(long id) {
         Optional<Company> company = companyRepo.findById(id);
         CompanyRes companyRes = new CompanyRes();
-        if(company.isPresent()){
-            Company entity=company.get();
-            BeanUtils.copyProperties(entity,companyRes);
+        if (company.isPresent()) {
+            Company entity = company.get();
+            BeanUtils.copyProperties(entity, companyRes);
         }
         return companyRes;
     }
 
     @Override
-    public boolean updateCompany(long id,CompanyReq updated) {
+    public boolean updateCompany(long id, CompanyReq updated) {
         Optional<Company> opCompany = companyRepo.findById(id);
-        if(opCompany.isPresent()){
+        if (opCompany.isPresent()) {
             Company company = opCompany.get();
-            BeanUtils.copyProperties(updated,company);
+            BeanUtils.copyProperties(updated, company);
             companyRepo.save(company);
             return true;
         }
@@ -71,7 +76,7 @@ public class CompanyServiceImpl implements ICompanyService{
     @Override
     public boolean deleteCompany(long id) {
         Optional<Company> opCompany = companyRepo.findById(id);
-        if(opCompany.isPresent()){
+        if (opCompany.isPresent()) {
             Company company = opCompany.get();
             companyRepo.delete(company);
             return true;

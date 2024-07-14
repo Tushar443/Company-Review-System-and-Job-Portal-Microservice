@@ -8,7 +8,7 @@ import java.util.List;
 public interface ICompanyService {
     List<CompanyRes> findAll();
 
-    boolean addCompany(List<CompanyReq> companyReqs);
+    boolean addCompany(CompanyReq companyReqs);
 
     CompanyRes getCompanyById(long id);
 
