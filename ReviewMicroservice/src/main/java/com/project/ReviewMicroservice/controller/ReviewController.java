@@ -38,7 +38,7 @@ public class ReviewController {
     }
     //add
     @PostMapping
-    public ResponseEntity<String> addReview(@RequestParam long companyId,@RequestBody List<ReviewReq> reviewReq){
+    public ResponseEntity<String> addReview(@RequestParam long companyId,@RequestBody ReviewReq reviewReq){
         reviewService.addReview(companyId,reviewReq);
         return new ResponseEntity<>("Company Added",HttpStatus.OK);
     }

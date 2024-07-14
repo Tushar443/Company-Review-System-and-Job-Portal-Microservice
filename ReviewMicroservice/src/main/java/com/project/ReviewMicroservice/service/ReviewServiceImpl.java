@@ -45,13 +45,11 @@ public class ReviewServiceImpl implements IReviewService{
     }
 
     @Override
-    public void addReview(long companyId, List<ReviewReq> reviewReqList) {
-        for(ReviewReq reviewReq : reviewReqList){
+    public void addReview(long companyId, ReviewReq reviewReq) {
             Review review = new Review();
             BeanUtils.copyProperties(reviewReq,review);
             review.setCompanyId(companyId);
             reviewRepo.save(review);
-        }
     }
 
     @Override

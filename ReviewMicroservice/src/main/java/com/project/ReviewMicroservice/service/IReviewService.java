@@ -10,7 +10,7 @@ public interface IReviewService {
 
     ReviewRes getReviewById(long reviewId);
 
-    void addReview(long companyId, List<ReviewReq> reviewReq);
+    void addReview(long companyId, ReviewReq reviewReq);
 
     boolean updateReview(long reviewId, ReviewReq updateReviewReq);
 

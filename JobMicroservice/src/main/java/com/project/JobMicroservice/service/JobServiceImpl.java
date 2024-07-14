@@ -47,12 +47,10 @@ public class JobServiceImpl implements IJobService{
     }
 
     @Override
-    public void createJob(List<JobReq> list) {
-        for (JobReq jobReq : list) {
+    public void createJob(JobReq jobReq) {
             Job job = new Job();
             BeanUtils.copyProperties(jobReq,job);
             jobRepo.save(job);
-        }
     }
 
     @Override

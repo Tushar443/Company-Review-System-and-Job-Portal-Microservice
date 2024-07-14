@@ -1,7 +1,10 @@
 package com.project.CompanyMicroservice.service;
 
 import com.project.CompanyMicroservice.beans.Company;
+import com.project.CompanyMicroservice.client.JobClient;
+import com.project.CompanyMicroservice.client.ReviewClient;
 import com.project.CompanyMicroservice.dto.request.CompanyReq;
+import com.project.CompanyMicroservice.dto.request.ReviewReq;
 import com.project.CompanyMicroservice.dto.response.CompanyRes;
 import com.project.CompanyMicroservice.repository.CompanyRepo;
 import org.springframework.beans.BeanUtils;
@@ -16,10 +19,15 @@ public class CompanyServiceImpl implements ICompanyService {
 
     CompanyRepo companyRepo;
 
-    public CompanyServiceImpl(CompanyRepo companyRepo) {
-        this.companyRepo = companyRepo;
-    }
+    JobClient jobClient;
 
+    ReviewClient reviewClient;
+
+    public CompanyServiceImpl(CompanyRepo companyRepo, JobClient jobClient, ReviewClient reviewClient) {
+        this.companyRepo = companyRepo;
+        this.jobClient = jobClient;
+        this.reviewClient = reviewClient;
+    }
 
     @Override
     public List<CompanyRes> findAll() {
@@ -36,13 +44,18 @@ public class CompanyServiceImpl implements ICompanyService {
     @Override
     public boolean addCompany(CompanyReq companyReq) {
         boolean flag;
-        Company dbCompany = companyRepo.findByName(companyReq.getName());
-        if (dbCompany != null) {
+        Company dbCompany = companyRepo.findCompanyByName(companyReq.getName());
+        if (dbCompany == null) {
             Company company = new Company();
             BeanUtils.copyProperties(companyReq, company);
-            company.setReviewsId(companyReq.getReviewsId());
-            company.setJobsId(companyReq.getJobsId());
-            companyRepo.save(company);
+            Company saveCompany = companyRepo.save(company);
+            // call job microservice
+            companyReq.getJobs().forEach(jobReq -> {
+                jobReq.setCompanyId(saveCompany.getId());
+                jobClient.addJob(jobReq);
+            });
+            // call review microservice
+            companyReq.getReviews().forEach(reviewReq -> reviewClient.addReview(saveCompany.getId(), reviewReq));
             flag = true;
         } else {
             flag = false;

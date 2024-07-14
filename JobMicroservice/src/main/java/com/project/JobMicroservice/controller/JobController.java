@@ -29,7 +29,7 @@ public class JobController {
     }
 
     @PostMapping
-    public ResponseEntity<String> addJob(@RequestBody List<JobReq> jobReq){
+    public ResponseEntity<String> addJob(@RequestBody JobReq jobReq){
          iJobService.createJob(jobReq);
          return new ResponseEntity<>("Job add Successfully",HttpStatus.CREATED);
     }

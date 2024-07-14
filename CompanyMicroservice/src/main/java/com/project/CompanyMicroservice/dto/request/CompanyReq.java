@@ -5,8 +5,9 @@ import java.util.List;
 public class CompanyReq {
     private String name;
     private String description;
-    private List<Long> jobsId;
-    private List<Long> reviewsId;
+    private List<JobReq> jobs;
+    private List<ReviewReq> reviews;
+
     public String getName() {
         return name;
     }
@@ -23,19 +24,19 @@ public class CompanyReq {
         this.description = description;
     }
 
-    public List<Long> getJobsId() {
-        return jobsId;
+    public List<JobReq> getJobs() {
+        return jobs;
     }
 
-    public void setJobsId(List<Long> jobsId) {
-        this.jobsId = jobsId;
+    public void setJobs(List<JobReq> jobs) {
+        this.jobs = jobs;
     }
 
-    public List<Long> getReviewsId() {
-        return reviewsId;
+    public List<ReviewReq> getReviews() {
+        return reviews;
     }
 
-    public void setReviewsId(List<Long> reviewsId) {
-        this.reviewsId = reviewsId;
+    public void setReviews(List<ReviewReq> reviews) {
+        this.reviews = reviews;
     }
 }
