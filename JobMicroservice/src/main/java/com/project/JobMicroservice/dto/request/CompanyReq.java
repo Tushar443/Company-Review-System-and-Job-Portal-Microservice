@@ -1,12 +1,12 @@
-package com.project.JobMicroservice.dto.response;
+package com.project.JobMicroservice.dto.request;
 
 import java.util.List;
 
-public class CompanyRes {
+public class CompanyReq {
     private String name;
     private String description;
-    private List<JobRes> jobs;
-    private List<ReviewRes> reviews;
+    private List<JobReq> jobs;
+    private List<ReviewReq> reviews;
 
     public String getName() {
         return name;
@@ -24,19 +24,19 @@ public class CompanyRes {
         this.description = description;
     }
 
-    public List<JobRes> getJobs() {
+    public List<JobReq> getJobs() {
         return jobs;
     }
 
-    public void setJobs(List<JobRes> jobs) {
+    public void setJobs(List<JobReq> jobs) {
         this.jobs = jobs;
     }
 
-    public List<ReviewRes> getReviews() {
+    public List<ReviewReq> getReviews() {
         return reviews;
     }
 
-    public void setReviews(List<ReviewRes> reviews) {
+    public void setReviews(List<ReviewReq> reviews) {
         this.reviews = reviews;
     }
 }

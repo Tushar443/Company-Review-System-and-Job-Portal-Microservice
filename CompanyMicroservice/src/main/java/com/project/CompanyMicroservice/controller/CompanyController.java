@@ -30,12 +30,12 @@ public class CompanyController {
     }
     //get company By Id
     @GetMapping("{id}")
-    public ResponseEntity<CompanyRes> getCompanyById(@PathVariable long id){
+    public CompanyRes getCompanyById(@PathVariable long id){
         CompanyRes companyRes = companyService.getCompanyById(id);
-        if(companyRes != null){
-            return  new ResponseEntity<>(companyRes,HttpStatus.OK);
+        if(companyRes.getName() != null){
+            return companyRes;
         }
-        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        return companyRes;
     }
     //add
     @PostMapping
@@ -48,12 +48,9 @@ public class CompanyController {
     }
     //update
     @PutMapping("{id}")
-    public ResponseEntity<String> updateCompany(@PathVariable long id ,@RequestBody CompanyReq companyReq){
-       boolean update = companyService.updateCompany(id,companyReq);
-       if(update){
-           return new ResponseEntity<>("Update Company Successfully",HttpStatus.OK);
-       }
-       return new ResponseEntity<>("Not Found",HttpStatus.NOT_FOUND);
+    public boolean updateCompany(@PathVariable long id ,@RequestBody CompanyReq companyReq){
+       return companyService.updateCompany(id,companyReq);
+
     }
     //delete
     @DeleteMapping("{id}")

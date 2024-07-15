@@ -3,7 +3,9 @@ package com.project.JobMicroservice.service;
 import com.project.JobMicroservice.beans.Job;
 import com.project.JobMicroservice.client.CompanyClient;
 import com.project.JobMicroservice.client.ReviewClient;
+import com.project.JobMicroservice.dto.request.CompanyReq;
 import com.project.JobMicroservice.dto.request.JobReq;
+import com.project.JobMicroservice.dto.request.ReviewReq;
 import com.project.JobMicroservice.dto.response.CompanyRes;
 import com.project.JobMicroservice.dto.response.JobRes;
 import com.project.JobMicroservice.dto.response.ReviewRes;
@@ -48,9 +50,13 @@ public class JobServiceImpl implements IJobService{
     @Override
     public Long createJob(JobReq jobReq) {
             Job job = new Job();
-            BeanUtils.copyProperties(jobReq,job);
+        CompanyRes companyRes = companyClient.getCompanyById(jobReq.getCompanyId());
+        if(companyRes.getName() != null) {
+            BeanUtils.copyProperties(jobReq, job);
             Job saveJob = jobRepo.save(job);
-        return saveJob.getId();
+            return saveJob.getId();
+        }
+        return null;
     }
 
     @Override
@@ -81,7 +87,22 @@ public class JobServiceImpl implements IJobService{
         Optional<Job> job= jobRepo.findById(id);
         if(job.isPresent()) {
             Job oldJob = job.get();
+            CompanyRes companyRes = companyClient.getCompanyById(oldJob.getCompanyId());
+            companyRes.getJobs().removeIf(jobRes-> jobRes.getId() == oldJob.getId());
             jobRepo.delete(oldJob);
+            CompanyReq companyReq = new CompanyReq();
+            BeanUtils.copyProperties(companyRes,companyReq);
+            companyReq.setJobs(companyRes.getJobs().stream().map(jobRes -> {
+                JobReq jobReq = new JobReq();
+                BeanUtils.copyProperties(jobRes,jobReq);
+                return jobReq;
+            }).toList());
+            companyReq.setReviews(companyRes.getReviews().stream().map(reviewRes -> {
+                ReviewReq reviewReq = new ReviewReq();
+                BeanUtils.copyProperties(reviewRes,reviewReq);
+                return reviewReq;
+            }).toList());
+            companyClient.updateCompany(oldJob.getCompanyId(), companyReq);
             return true;
         }
         return false;

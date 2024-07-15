@@ -103,6 +103,10 @@ public class CompanyServiceImpl implements ICompanyService {
         if (opCompany.isPresent()) {
             Company company = opCompany.get();
             BeanUtils.copyProperties(updated, company);
+            List<Long> jobId = updated.getJobs().stream().map(JobReq::getId).toList();
+            List<Long> reviewId = updated.getReviews().stream().map(ReviewReq::getId).toList();
+            company.setJobsId(jobId);
+            company.setReviewsId(reviewId);
             companyRepo.save(company);
             return true;
         }

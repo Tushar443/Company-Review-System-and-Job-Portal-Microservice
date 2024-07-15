@@ -1,11 +1,20 @@
 package com.project.CompanyMicroservice.dto.response;
 
 public class JobRes {
+    private Long id;
     private String title;
     private String description;
     private String minSalary;
     private String maxSalary;
     private String location;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public String getTitle() {
         return title;

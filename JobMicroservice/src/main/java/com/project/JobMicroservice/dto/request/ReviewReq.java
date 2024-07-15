@@ -1,10 +1,19 @@
-package com.project.JobMicroservice.dto.response;
+package com.project.JobMicroservice.dto.request;
 
-public class ReviewRes {
+public class ReviewReq {
     private long id;
     private String title;
     private String description;
     private double rating;
+    private Long companyId;
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
 
     public String getTitle() {
         return title;
@@ -30,11 +39,11 @@ public class ReviewRes {
         this.rating = rating;
     }
 
-    public long getId() {
-        return id;
+    public Long getCompanyId() {
+        return companyId;
     }
 
-    public void setId(long id) {
-        this.id = id;
+    public void setCompanyId(Long companyId) {
+        this.companyId = companyId;
     }
 }

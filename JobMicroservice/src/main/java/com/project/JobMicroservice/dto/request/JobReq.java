@@ -1,12 +1,22 @@
 package com.project.JobMicroservice.dto.request;
 
 public class JobReq {
+    private long id;
     private String title;
     private String description;
     private String minSalary;
     private String maxSalary;
     private String location;
     private Long companyId;
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
     public String getTitle() {
         return title;
     }
