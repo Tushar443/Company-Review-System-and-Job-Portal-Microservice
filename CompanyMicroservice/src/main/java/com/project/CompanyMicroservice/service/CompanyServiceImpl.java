@@ -114,6 +114,12 @@ public class CompanyServiceImpl implements ICompanyService {
         Optional<Company> opCompany = companyRepo.findById(id);
         if (opCompany.isPresent()) {
             Company company = opCompany.get();
+            for(Long reviewId : company.getReviewsId()){
+               boolean isDeletedReview = reviewClient.deleteReviewById(reviewId);
+            }
+            for(Long jobId: company.getJobsId()){
+                boolean isDeletedJob = jobClient.deleteJobById(jobId);
+            }
             companyRepo.delete(company);
             return true;
         }

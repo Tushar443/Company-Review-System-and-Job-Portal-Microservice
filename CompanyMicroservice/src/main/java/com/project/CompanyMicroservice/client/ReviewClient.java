@@ -13,4 +13,7 @@ public interface ReviewClient {
 
     @GetMapping("/reviews/{reviewId}")
     ResponseEntity<ReviewRes> getReviewById(@PathVariable long reviewId);
+
+    @DeleteMapping("/reviews/{reviewId}")
+    boolean deleteReviewById(@PathVariable long reviewId);
 }
