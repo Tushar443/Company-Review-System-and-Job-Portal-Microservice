@@ -11,7 +11,6 @@ import com.project.CompanyMicroservice.dto.response.JobRes;
 import com.project.CompanyMicroservice.dto.response.ReviewRes;
 import com.project.CompanyMicroservice.repository.CompanyRepo;
 import org.springframework.beans.BeanUtils;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -125,6 +124,18 @@ public class CompanyServiceImpl implements ICompanyService {
                 boolean isDeletedJob = jobClient.deleteJobById(jobId);
             }
             companyRepo.delete(company);
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public boolean updateCompanyJobId(long companyId, long jobId) {
+        Optional<Company> optionalCompany = companyRepo.findById(companyId);
+        if(optionalCompany.isPresent()){
+            Company company = optionalCompany.get();
+            company.getJobsId().removeIf(dbJob -> dbJob == jobId);
+            companyRepo.save(company);
             return true;
         }
         return false;

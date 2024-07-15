@@ -50,8 +50,13 @@ public class CompanyController {
     @PutMapping("{id}")
     public boolean updateCompany(@PathVariable long id ,@RequestBody CompanyReq companyReq){
        return companyService.updateCompany(id,companyReq);
-
     }
+
+    @PutMapping("/updateJobs")
+    boolean updateCompanyJobId(@RequestParam long companyId, @RequestParam long jobId){
+       return companyService.updateCompanyJobId(companyId,jobId);
+    }
+
     //delete
     @DeleteMapping("{id}")
     public ResponseEntity<String> deleteById(@PathVariable long id){

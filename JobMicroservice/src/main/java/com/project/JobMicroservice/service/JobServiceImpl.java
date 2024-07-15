@@ -89,22 +89,8 @@ public class JobServiceImpl implements IJobService{
             Job oldJob = job.get();
             CompanyRes companyRes = companyClient.getCompanyById(oldJob.getCompanyId());
             if(companyRes !=  null) {
-                companyRes.getJobs().removeIf(jobRes -> jobRes.getId() == oldJob.getId());
                 jobRepo.delete(oldJob);
-                CompanyReq companyReq = new CompanyReq();
-                BeanUtils.copyProperties(companyRes, companyReq);
-                companyReq.setJobs(companyRes.getJobs().stream().map(jobRes -> {
-                    JobReq jobReq = new JobReq();
-                    BeanUtils.copyProperties(jobRes, jobReq);
-                    return jobReq;
-                }).toList());
-                companyReq.setReviews(companyRes.getReviews().stream().map(reviewRes -> {
-                    ReviewReq reviewReq = new ReviewReq();
-                    BeanUtils.copyProperties(reviewRes, reviewReq);
-                    return reviewReq;
-                }).toList());
-                companyClient.updateCompany(oldJob.getCompanyId(), companyReq);
-                return true;
+                return companyClient.updateCompanyJobId(oldJob.getCompanyId(), oldJob.getId());
             }
         }
         return false;
