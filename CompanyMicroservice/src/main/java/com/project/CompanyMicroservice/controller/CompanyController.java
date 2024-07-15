@@ -35,7 +35,7 @@ public class CompanyController {
         if(companyRes.getName() != null){
             return companyRes;
         }
-        return companyRes;
+        return null;
     }
     //add
     @PostMapping

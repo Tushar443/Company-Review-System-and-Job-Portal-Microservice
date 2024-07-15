@@ -29,12 +29,12 @@ public class ReviewController {
     }
     //get company By Id
     @GetMapping("{reviewId}")
-    public ResponseEntity<ReviewRes> getReviewById(@PathVariable long reviewId){
+    public ReviewRes getReviewById(@PathVariable long reviewId){
         ReviewRes reviewRes = reviewService.getReviewById(reviewId);
         if(reviewRes != null){
-            return  new ResponseEntity<>(reviewRes,HttpStatus.OK);
+            return  reviewRes;
         }
-        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        return null;
     }
     //add
     @PostMapping

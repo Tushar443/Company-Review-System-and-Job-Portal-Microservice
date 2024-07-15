@@ -1,10 +1,20 @@
 package com.project.ReviewMicroservice.dto.request;
 
 public class ReviewReq {
+    private long id;
     private String title;
     private String description;
     private double rating;
     private Long companyId;
+
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
 
     public String getTitle() {
         return title;
