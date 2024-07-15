@@ -39,11 +39,11 @@ public class JobServiceImpl implements IJobService{
         return list.stream().map(job -> {
             CompanyRes companyRes = companyClient.getCompanyById(job.getCompanyId());
             ResponseEntity<List<ReviewRes>> allReviews = reviewClient.getAllReviews(job.getCompanyId());
-            JobRes jobCompanyReviewDTO = new JobRes();
-            BeanUtils.copyProperties(job,jobCompanyReviewDTO);
-            jobCompanyReviewDTO.setCompanyRes(companyRes);
-            jobCompanyReviewDTO.setReviewRes(allReviews.getBody());
-            return jobCompanyReviewDTO;
+            JobRes jobRes = new JobRes();
+            BeanUtils.copyProperties(job,jobRes);
+            jobRes.setCompanyRes(companyRes);
+            jobRes.setReviewRes(allReviews.getBody());
+            return jobRes;
         }).collect(Collectors.toList());
     }
 
@@ -51,7 +51,7 @@ public class JobServiceImpl implements IJobService{
     public Long createJob(JobReq jobReq) {
             Job job = new Job();
         CompanyRes companyRes = companyClient.getCompanyById(jobReq.getCompanyId());
-        if(companyRes.getName() != null) {
+        if(companyRes != null) {
             BeanUtils.copyProperties(jobReq, job);
             Job saveJob = jobRepo.save(job);
             return saveJob.getId();
@@ -88,22 +88,24 @@ public class JobServiceImpl implements IJobService{
         if(job.isPresent()) {
             Job oldJob = job.get();
             CompanyRes companyRes = companyClient.getCompanyById(oldJob.getCompanyId());
-            companyRes.getJobs().removeIf(jobRes-> jobRes.getId() == oldJob.getId());
-            jobRepo.delete(oldJob);
-            CompanyReq companyReq = new CompanyReq();
-            BeanUtils.copyProperties(companyRes,companyReq);
-            companyReq.setJobs(companyRes.getJobs().stream().map(jobRes -> {
-                JobReq jobReq = new JobReq();
-                BeanUtils.copyProperties(jobRes,jobReq);
-                return jobReq;
-            }).toList());
-            companyReq.setReviews(companyRes.getReviews().stream().map(reviewRes -> {
-                ReviewReq reviewReq = new ReviewReq();
-                BeanUtils.copyProperties(reviewRes,reviewReq);
-                return reviewReq;
-            }).toList());
-            companyClient.updateCompany(oldJob.getCompanyId(), companyReq);
-            return true;
+            if(companyRes !=  null) {
+                companyRes.getJobs().removeIf(jobRes -> jobRes.getId() == oldJob.getId());
+                jobRepo.delete(oldJob);
+                CompanyReq companyReq = new CompanyReq();
+                BeanUtils.copyProperties(companyRes, companyReq);
+                companyReq.setJobs(companyRes.getJobs().stream().map(jobRes -> {
+                    JobReq jobReq = new JobReq();
+                    BeanUtils.copyProperties(jobRes, jobReq);
+                    return jobReq;
+                }).toList());
+                companyReq.setReviews(companyRes.getReviews().stream().map(reviewRes -> {
+                    ReviewReq reviewReq = new ReviewReq();
+                    BeanUtils.copyProperties(reviewRes, reviewReq);
+                    return reviewReq;
+                }).toList());
+                companyClient.updateCompany(oldJob.getCompanyId(), companyReq);
+                return true;
+            }
         }
         return false;
     }
