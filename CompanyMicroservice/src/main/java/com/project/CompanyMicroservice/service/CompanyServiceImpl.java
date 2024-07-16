@@ -97,6 +97,17 @@ public class CompanyServiceImpl implements ICompanyService {
     }
 
     @Override
+    public CompanyRes getCompanyByIdForReviews(long id) {
+        Optional<Company> company = companyRepo.findById(id);
+        CompanyRes companyRes = new CompanyRes();
+        if (company.isPresent()) {
+            Company entity = company.get();
+            BeanUtils.copyProperties(entity,companyRes);
+        }
+        return companyRes;
+    }
+
+    @Override
     public boolean updateCompany(long id, CompanyReq updated) {
         Optional<Company> opCompany = companyRepo.findById(id);
         if (opCompany.isPresent()) {

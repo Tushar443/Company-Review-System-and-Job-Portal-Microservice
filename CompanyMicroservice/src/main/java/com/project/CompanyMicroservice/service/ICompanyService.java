@@ -12,6 +12,8 @@ public interface ICompanyService {
 
     CompanyRes getCompanyById(long id);
 
+    CompanyRes getCompanyByIdForReviews(long id);
+
     boolean updateCompany(long id,CompanyReq updated);
 
     boolean deleteCompany(long id);

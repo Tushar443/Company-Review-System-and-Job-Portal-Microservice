@@ -5,7 +5,7 @@ public class ReviewRes {
     private String title;
     private String description;
     private double rating;
-    private Long companyId;
+    private CompanyRes companyRes;
 
     public long getId() {
         return id;
@@ -39,11 +39,11 @@ public class ReviewRes {
         this.rating = rating;
     }
 
-    public Long getCompanyId() {
-        return companyId;
+    public CompanyRes getCompanyRes() {
+        return companyRes;
     }
 
-    public void setCompanyId(Long companyId) {
-        this.companyId = companyId;
+    public void setCompanyRes(CompanyRes companyRes) {
+        this.companyRes = companyRes;
     }
 }

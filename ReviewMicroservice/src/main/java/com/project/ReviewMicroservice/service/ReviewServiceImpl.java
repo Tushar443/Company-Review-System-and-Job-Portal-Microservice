@@ -43,7 +43,9 @@ public class ReviewServiceImpl implements IReviewService {
         ReviewRes reviewRes = new ReviewRes();
         if (optionalReview.isPresent()) {
             Review review = optionalReview.get();
+            CompanyRes companyRes = companyClient.getCompanyByIdForReviews(review.getCompanyId());
             BeanUtils.copyProperties(review, reviewRes);
+            reviewRes.setCompanyRes(companyRes);
             return reviewRes;
         }
         return reviewRes;

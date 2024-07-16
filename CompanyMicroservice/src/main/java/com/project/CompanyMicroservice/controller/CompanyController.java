@@ -37,6 +37,11 @@ public class CompanyController {
         }
         return null;
     }
+
+    @GetMapping("reviews")
+    public CompanyRes getCompanyByIdForReviews(@RequestParam(name = "companyId") long companyId){
+        return companyService.getCompanyByIdForReviews(companyId);
+    }
     //add
     @PostMapping
     public ResponseEntity<String> addCompany(@RequestBody CompanyReq companyReq){
