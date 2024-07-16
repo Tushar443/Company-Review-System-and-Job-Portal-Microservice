@@ -164,7 +164,8 @@ public class CompanyServiceImpl implements ICompanyService {
                 company.getReviewsId().add(reviewId);
             }else {
                 company.getReviewsId().removeIf(dbReview -> dbReview == reviewId);
-            }companyRepo.save(company);
+            }
+            companyRepo.save(company);
             return true;
         }
         return false;
