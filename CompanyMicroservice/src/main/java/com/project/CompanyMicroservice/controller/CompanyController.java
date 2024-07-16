@@ -53,13 +53,13 @@ public class CompanyController {
     }
 
     @PutMapping("/updateJobs")
-    boolean updateCompanyJobId(@RequestParam long companyId, @RequestParam long jobId){
-       return companyService.updateCompanyJobId(companyId,jobId);
+    boolean updateCompanyJobId(@RequestParam long companyId, @RequestParam long jobId , @RequestParam boolean isAdd){
+       return companyService.updateCompanyJobId(companyId,jobId,isAdd);
     }
 
-    @PutMapping("/company/updateReviews")
-    boolean updateCompanyReviewId(@RequestParam long companyId, @RequestParam long reviewId){
-        return companyService.updateCompanyReviewId(companyId,reviewId);
+    @PutMapping("/updateReviews")
+    boolean updateCompanyReviewId(@RequestParam long companyId, @RequestParam long reviewId, @RequestParam boolean isAdd){
+        return companyService.updateCompanyReviewId(companyId,reviewId,isAdd);
     }
 
     //delete

@@ -12,5 +12,5 @@ public interface CompanyClient {
     CompanyRes getCompanyById(@PathVariable("id") Long id);
 
     @PutMapping("/company/updateJobs")
-    boolean updateCompanyJobId(@RequestParam long companyId, @RequestParam long jobId);
+    boolean updateCompanyJobId(@RequestParam long companyId, @RequestParam long jobId,@RequestParam boolean isAdd);
 }

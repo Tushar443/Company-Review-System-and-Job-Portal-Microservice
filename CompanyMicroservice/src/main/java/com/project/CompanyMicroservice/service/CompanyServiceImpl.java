@@ -130,24 +130,30 @@ public class CompanyServiceImpl implements ICompanyService {
     }
 
     @Override
-    public boolean updateCompanyJobId(long companyId, long jobId) {
+    public boolean updateCompanyJobId(long companyId, long jobId,boolean isAdd) {
         Optional<Company> optionalCompany = companyRepo.findById(companyId);
         if(optionalCompany.isPresent()){
             Company company = optionalCompany.get();
-            company.getJobsId().removeIf(dbJob -> dbJob == jobId);
-            companyRepo.save(company);
+            if(isAdd){
+                company.getJobsId().add(jobId);
+            }else {
+                company.getJobsId().removeIf(dbJob -> dbJob == jobId);
+            }companyRepo.save(company);
             return true;
         }
         return false;
     }
 
     @Override
-    public boolean updateCompanyReviewId(long companyId, long reviewId) {
+    public boolean updateCompanyReviewId(long companyId, long reviewId,boolean isAdd) {
         Optional<Company> optionalCompany = companyRepo.findById(companyId);
         if(optionalCompany.isPresent()){
             Company company = optionalCompany.get();
-            company.getReviewsId().removeIf(dbReview -> dbReview == reviewId);
-            companyRepo.save(company);
+            if(isAdd){
+                company.getReviewsId().add(reviewId);
+            }else {
+                company.getReviewsId().removeIf(dbReview -> dbReview == reviewId);
+            }companyRepo.save(company);
             return true;
         }
         return false;

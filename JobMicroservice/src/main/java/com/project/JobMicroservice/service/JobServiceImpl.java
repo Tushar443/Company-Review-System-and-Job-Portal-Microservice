@@ -54,6 +54,7 @@ public class JobServiceImpl implements IJobService{
         if(companyRes != null) {
             BeanUtils.copyProperties(jobReq, job);
             Job saveJob = jobRepo.save(job);
+            companyClient.updateCompanyJobId(saveJob.getCompanyId(),saveJob.getId(),true);
             return saveJob.getId();
         }
         return null;
@@ -90,7 +91,7 @@ public class JobServiceImpl implements IJobService{
             CompanyRes companyRes = companyClient.getCompanyById(oldJob.getCompanyId());
             if(companyRes !=  null) {
                 jobRepo.delete(oldJob);
-                return companyClient.updateCompanyJobId(oldJob.getCompanyId(), oldJob.getId());
+                return companyClient.updateCompanyJobId(oldJob.getCompanyId(), oldJob.getId(),false);
             }
         }
         return false;
