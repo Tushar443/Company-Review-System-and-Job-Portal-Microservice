@@ -17,4 +17,6 @@ public interface ICompanyService {
     boolean deleteCompany(long id);
 
     boolean updateCompanyJobId(long companyId, long jobId);
+
+    boolean updateCompanyReviewId(long companyId, long reviewId);
 }

@@ -57,6 +57,11 @@ public class CompanyController {
        return companyService.updateCompanyJobId(companyId,jobId);
     }
 
+    @PutMapping("/company/updateReviews")
+    boolean updateCompanyReviewId(@RequestParam long companyId, @RequestParam long reviewId){
+        return companyService.updateCompanyReviewId(companyId,reviewId);
+    }
+
     //delete
     @DeleteMapping("{id}")
     public ResponseEntity<String> deleteById(@PathVariable long id){

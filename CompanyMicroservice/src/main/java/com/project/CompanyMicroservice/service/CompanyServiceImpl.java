@@ -140,4 +140,16 @@ public class CompanyServiceImpl implements ICompanyService {
         }
         return false;
     }
+
+    @Override
+    public boolean updateCompanyReviewId(long companyId, long reviewId) {
+        Optional<Company> optionalCompany = companyRepo.findById(companyId);
+        if(optionalCompany.isPresent()){
+            Company company = optionalCompany.get();
+            company.getReviewsId().removeIf(dbReview -> dbReview == reviewId);
+            companyRepo.save(company);
+            return true;
+        }
+        return false;
+    }
 }
