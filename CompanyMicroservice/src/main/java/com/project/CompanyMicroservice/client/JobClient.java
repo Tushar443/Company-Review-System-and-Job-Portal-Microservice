@@ -6,7 +6,7 @@ import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-@FeignClient(name = "JOBMICROSERVICE")
+@FeignClient(name = "JOBMICROSERVICE",url = "${job-service.url}")
 public interface JobClient {
     @PostMapping("/jobs/")
     ResponseEntity<Long> addJob(@RequestBody JobReq jobReq);

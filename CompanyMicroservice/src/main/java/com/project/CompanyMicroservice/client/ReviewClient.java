@@ -6,7 +6,7 @@ import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-@FeignClient(name = "REVIEWMICROSERVICE")
+@FeignClient(name = "REVIEWMICROSERVICE",url = "${review-service.url}")
 public interface ReviewClient {
     @PostMapping("/reviews/")
     ResponseEntity<Long> addReview(@RequestParam long companyId, @RequestBody ReviewReq reviewReq);

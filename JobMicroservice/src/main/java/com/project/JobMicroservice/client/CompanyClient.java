@@ -5,7 +5,7 @@ import com.project.JobMicroservice.dto.response.CompanyRes;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.*;
 
-@FeignClient(name = "COMPANYMICROSERVICE")
+@FeignClient(name = "COMPANYMICROSERVICE" , url = "${company-service.url}")
 public interface CompanyClient {
 
     @GetMapping("/company/{id}")
