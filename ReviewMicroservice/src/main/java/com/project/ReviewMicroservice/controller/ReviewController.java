@@ -2,18 +2,20 @@ package com.project.ReviewMicroservice.controller;
 
 import com.project.ReviewMicroservice.dto.request.ReviewReq;
 import com.project.ReviewMicroservice.dto.response.ReviewRes;
+import com.project.ReviewMicroservice.messaging.ReviewMessageProducer;
 import com.project.ReviewMicroservice.service.IReviewService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
 @RequestMapping("reviews")
 public class ReviewController {
 
-    IReviewService reviewService;
+    private final IReviewService reviewService;
 
     public ReviewController(IReviewService reviewService) {
         this.reviewService = reviewService;
@@ -40,6 +42,9 @@ public class ReviewController {
     @PostMapping
     public ResponseEntity<Long> addReview(@RequestParam long companyId,@RequestBody ReviewReq reviewReq){
         Long reviewId = reviewService.addReview(companyId,reviewReq);
+        if(reviewId != null){
+            return new ResponseEntity<>(reviewId,HttpStatus.OK);
+        }
         return new ResponseEntity<>(reviewId,HttpStatus.OK);
     }
     //update
@@ -56,4 +61,12 @@ public class ReviewController {
     public boolean deleteReviewById(@PathVariable long reviewId ){
         return reviewService.deleteReview(reviewId);
     }
+
+    @GetMapping("/getAverageRating")
+    public Double getAverageRating(@RequestParam Long companyId){
+        List<ReviewRes> reviewResList = reviewService.findAll(companyId);
+        return reviewResList.stream().mapToDouble(ReviewRes::getRating).average().orElse(0.0);
+    }
+
+
 }

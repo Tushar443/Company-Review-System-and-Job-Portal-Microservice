@@ -13,6 +13,7 @@ public class Company {
     private long id ;
     private String name;
     private String description;
+    private Double companyRating;
     private List<Long> jobsId;
     private List<Long> reviewsId;
     public Company() {
@@ -58,5 +59,13 @@ public class Company {
 
     public void setReviewsId(List<Long> reviewsId) {
         this.reviewsId = reviewsId;
+    }
+
+    public Double getCompanyRating() {
+        return companyRating;
+    }
+
+    public void setCompanyRating(Double companyRating) {
+        this.companyRating = companyRating;
     }
 }

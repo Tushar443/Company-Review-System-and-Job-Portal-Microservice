@@ -158,22 +158,34 @@ public class CompanyServiceImpl implements ICompanyService {
 
     @Override
     public boolean updateCompanyReviewId(long companyId, long reviewId,boolean isAdd) {
-        Optional<Company> optionalCompany = companyRepo.findById(companyId);
-        if(optionalCompany.isPresent()){
-            Company company = optionalCompany.get();
-            if(isAdd){
-                company.getReviewsId().add(reviewId);
-            }else {
-                company.getReviewsId().removeIf(dbReview -> dbReview == reviewId);
-            }
-            companyRepo.save(company);
-            return true;
-        }
+//        Optional<Company> optionalCompany = companyRepo.findById(companyId);
+//        if(optionalCompany.isPresent()){
+//            Company company = optionalCompany.get();
+//            if(isAdd){
+//                company.getReviewsId().add(reviewId);
+//            }else {
+//                company.getReviewsId().removeIf(dbReview -> dbReview == reviewId);
+//            }
+//            companyRepo.save(company);
+//            return true;
+//        }
         return false;
     }
 
     @Override
     public void updateCompanyRating(ReviewMessage reviewMessage) {
-
+        System.out.println(reviewMessage.getDescription() +" id "+reviewMessage.getId() +" "+ reviewMessage.getCompanyId());
+        Double average = reviewClient.getAverageRating(reviewMessage.getCompanyId());
+        Double newAverage = (reviewMessage.getRating() + average) / 2;
+        System.out.println(newAverage);
+        if(reviewMessage.getCompanyId() != null && reviewMessage.getCompanyId() > 0) {
+            Optional<Company> optionalCompany = companyRepo.findById(reviewMessage.getCompanyId());
+            if (optionalCompany.isPresent()) {
+                Company company = optionalCompany.get();
+                company.getReviewsId().add(reviewMessage.getId());
+            company.setCompanyRating(newAverage);
+                companyRepo.save(company);
+            }
+        }
     }
 }

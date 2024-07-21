@@ -2,6 +2,7 @@ package com.project.ReviewMicroservice.messaging;
 
 import com.project.ReviewMicroservice.beans.Review;
 import com.project.ReviewMicroservice.dto.RabbitMQ.ReviewMessage;
+import com.project.ReviewMicroservice.dto.request.ReviewReq;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;

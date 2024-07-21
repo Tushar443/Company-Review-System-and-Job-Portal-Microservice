@@ -16,4 +16,7 @@ public interface ReviewClient {
 
     @DeleteMapping("/reviews/{reviewId}")
     boolean deleteReviewById(@PathVariable long reviewId);
+
+    @GetMapping("/reviews/getAverageRating")
+    Double getAverageRating(@RequestParam Long companyId);
 }

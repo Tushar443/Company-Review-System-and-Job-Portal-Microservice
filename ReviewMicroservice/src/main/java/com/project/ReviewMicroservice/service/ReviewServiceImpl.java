@@ -5,6 +5,7 @@ import com.project.ReviewMicroservice.client.CompanyClient;
 import com.project.ReviewMicroservice.dto.request.ReviewReq;
 import com.project.ReviewMicroservice.dto.response.CompanyRes;
 import com.project.ReviewMicroservice.dto.response.ReviewRes;
+import com.project.ReviewMicroservice.messaging.ReviewMessageProducer;
 import com.project.ReviewMicroservice.repository.ReviewRepo;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
@@ -20,9 +21,13 @@ public class ReviewServiceImpl implements IReviewService {
 
     CompanyClient companyClient;
 
-    public ReviewServiceImpl(ReviewRepo reviewRepo,CompanyClient companyClient) {
+
+    private final ReviewMessageProducer reviewMessageProducer;
+
+    public ReviewServiceImpl(ReviewRepo reviewRepo, CompanyClient companyClient, ReviewMessageProducer reviewMessageProducer) {
         this.reviewRepo = reviewRepo;
         this.companyClient = companyClient;
+        this.reviewMessageProducer = reviewMessageProducer;
     }
 
     @Override
@@ -53,16 +58,12 @@ public class ReviewServiceImpl implements IReviewService {
 
     @Override
     public Long addReview(long companyId, ReviewReq reviewReq) {
-        CompanyRes companyRes = companyClient.getCompanyById(companyId);
-        if(companyRes!= null) {
             Review review = new Review();
             BeanUtils.copyProperties(reviewReq, review);
             review.setCompanyId(companyId);
             Review save = reviewRepo.save(review);
-            companyClient.updateCompanyReviewId(companyId,save.getId(),true);
+            reviewMessageProducer.sendMessage(save);
             return save.getId();
-        }
-        return null;
     }
 
     @Override
