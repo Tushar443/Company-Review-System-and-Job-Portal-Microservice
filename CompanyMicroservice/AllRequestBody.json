@@ -7,7 +7,7 @@
     "description" : "Pl SQL developer",
     "minSalary": "20000",
     "maxSalary": "100000",
-    "location" : "Banglore"
+    "location" : "Bangalore"
   },
     {
       "title" : "Lead Developer",
@@ -21,20 +21,20 @@
       "description" : "Bank end",
       "minSalary": "440000",
       "maxSalary": "67000000",
-      "location" : "Dehli"
+      "location" : "Delhi"
     }],
   "reviews":
   [{
     "title" : "Nice",
-    "description" : "Nice envirotntmetn",
+    "description" : "Nice environment",
     "rating": 1.1
   },{
-    "title" : "Greate",
+    "title" : "Great",
     "description" : "Great Work place",
     "rating": 3.2
   },{
     "title" : "Excellent",
-    "description" : "Excellent envirotntmetn",
+    "description" : "Excellent environment",
     "rating": 2.3
   }]
 }
@@ -48,7 +48,7 @@
     "description" : "insurance",
     "minSalary": "20000",
     "maxSalary": "100000",
-    "location" : "Banglore"
+    "location" : "Bangalore"
   },
     {
       "title" : "Application Lead",
@@ -62,12 +62,12 @@
       "description" : "Bank",
       "minSalary": "440000",
       "maxSalary": "67000000",
-      "location" : "Dehli"
+      "location" : "Delhi"
     }],
   "reviews":
   [{
     "title" : "Bad",
-    "description" : "Bad envirotntmetn",
+    "description" : "Bad environment",
     "rating": 1.1
   },{
     "title" : "Good",
@@ -89,7 +89,7 @@
       "description" : "java developer",
       "minSalary": "20000",
       "maxSalary": "100000",
-      "location" : "Banglore"
+      "location" : "Bangalore"
     },
       {
         "title" : "Lead Full Stack Developer",
@@ -103,7 +103,7 @@
         "description" : "Bank end",
         "minSalary": "440000",
         "maxSalary": "67000000",
-        "location" : "Dehli"
+        "location" : "Delhi"
       }],
     "reviews":
     [{
@@ -116,7 +116,7 @@
       "rating": 2.1
     },{
       "title" : "Not so good ",
-      "description" : "Excellent envirotntmetn",
+      "description" : "Excellent environment",
       "rating": 1.1
     }]
   }
