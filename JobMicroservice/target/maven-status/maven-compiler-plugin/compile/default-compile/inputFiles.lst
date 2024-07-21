@@ -1,7 +1,13 @@
+M:\Tushar\Java Practice\Microservice_Project_2\JobMicroservice\src\main\java\com\project\JobMicroservice\beans\Job.java
+M:\Tushar\Java Practice\Microservice_Project_2\JobMicroservice\src\main\java\com\project\JobMicroservice\client\CompanyClient.java
+M:\Tushar\Java Practice\Microservice_Project_2\JobMicroservice\src\main\java\com\project\JobMicroservice\client\ReviewClient.java
 M:\Tushar\Java Practice\Microservice_Project_2\JobMicroservice\src\main\java\com\project\JobMicroservice\controller\JobController.java
-M:\Tushar\Java Practice\Microservice_Project_2\JobMicroservice\src\main\java\com\project\JobMicroservice\dao\beans\Job.java
-M:\Tushar\Java Practice\Microservice_Project_2\JobMicroservice\src\main\java\com\project\JobMicroservice\dao\request\JobReq.java
-M:\Tushar\Java Practice\Microservice_Project_2\JobMicroservice\src\main\java\com\project\JobMicroservice\dao\response\JobRes.java
+M:\Tushar\Java Practice\Microservice_Project_2\JobMicroservice\src\main\java\com\project\JobMicroservice\dto\request\CompanyReq.java
+M:\Tushar\Java Practice\Microservice_Project_2\JobMicroservice\src\main\java\com\project\JobMicroservice\dto\request\JobReq.java
+M:\Tushar\Java Practice\Microservice_Project_2\JobMicroservice\src\main\java\com\project\JobMicroservice\dto\request\ReviewReq.java
+M:\Tushar\Java Practice\Microservice_Project_2\JobMicroservice\src\main\java\com\project\JobMicroservice\dto\response\CompanyRes.java
+M:\Tushar\Java Practice\Microservice_Project_2\JobMicroservice\src\main\java\com\project\JobMicroservice\dto\response\JobRes.java
+M:\Tushar\Java Practice\Microservice_Project_2\JobMicroservice\src\main\java\com\project\JobMicroservice\dto\response\ReviewRes.java
 M:\Tushar\Java Practice\Microservice_Project_2\JobMicroservice\src\main\java\com\project\JobMicroservice\JobMicroserviceApplication.java
 M:\Tushar\Java Practice\Microservice_Project_2\JobMicroservice\src\main\java\com\project\JobMicroservice\repository\JobRepo.java
 M:\Tushar\Java Practice\Microservice_Project_2\JobMicroservice\src\main\java\com\project\JobMicroservice\service\IJobService.java
