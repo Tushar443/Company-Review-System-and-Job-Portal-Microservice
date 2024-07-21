@@ -11,6 +11,7 @@ import com.project.CompanyMicroservice.dto.response.CompanyRes;
 import com.project.CompanyMicroservice.dto.response.JobRes;
 import com.project.CompanyMicroservice.dto.response.ReviewRes;
 import com.project.CompanyMicroservice.repository.CompanyRepo;
+import jakarta.ws.rs.NotFoundException;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
@@ -179,7 +180,7 @@ public class CompanyServiceImpl implements ICompanyService {
         Double newAverage = (reviewMessage.getRating() + average) / 2;
         System.out.println(newAverage);
         if(reviewMessage.getCompanyId() != null && reviewMessage.getCompanyId() > 0) {
-            Optional<Company> optionalCompany = companyRepo.findById(reviewMessage.getCompanyId());
+            Optional<Company> optionalCompany = Optional.ofNullable(companyRepo.findById(reviewMessage.getCompanyId()).orElseThrow(() -> new NotFoundException("Company is Not Found with Id =" + reviewMessage.getCompanyId())));
             if (optionalCompany.isPresent()) {
                 Company company = optionalCompany.get();
                 company.getReviewsId().add(reviewMessage.getId());
