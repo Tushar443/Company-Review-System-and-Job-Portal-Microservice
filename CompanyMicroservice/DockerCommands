@@ -2,6 +2,8 @@
 -- To Create a docker image
 ./mvnw spring-boot:build-image "-Dspring-boot.build-image.imageName=moretushart2/servicereg"
 
+docker build -t <your_username>/my-private-repo
+
 --config-server
 ./mvnw spring-boot:build-image "-Dspring-boot.build-image.imageName=moretushart2/config-server"
 
