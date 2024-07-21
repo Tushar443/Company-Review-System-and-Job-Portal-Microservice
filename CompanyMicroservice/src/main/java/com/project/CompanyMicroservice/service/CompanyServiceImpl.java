@@ -3,6 +3,7 @@ package com.project.CompanyMicroservice.service;
 import com.project.CompanyMicroservice.beans.Company;
 import com.project.CompanyMicroservice.client.JobClient;
 import com.project.CompanyMicroservice.client.ReviewClient;
+import com.project.CompanyMicroservice.dto.RabbitMQ.ReviewMessage;
 import com.project.CompanyMicroservice.dto.request.CompanyReq;
 import com.project.CompanyMicroservice.dto.request.JobReq;
 import com.project.CompanyMicroservice.dto.request.ReviewReq;
@@ -169,5 +170,10 @@ public class CompanyServiceImpl implements ICompanyService {
             return true;
         }
         return false;
+    }
+
+    @Override
+    public void updateCompanyRating(ReviewMessage reviewMessage) {
+
     }
 }

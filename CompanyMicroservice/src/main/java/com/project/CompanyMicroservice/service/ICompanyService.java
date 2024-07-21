@@ -1,5 +1,6 @@
 package com.project.CompanyMicroservice.service;
 
+import com.project.CompanyMicroservice.dto.RabbitMQ.ReviewMessage;
 import com.project.CompanyMicroservice.dto.request.CompanyReq;
 import com.project.CompanyMicroservice.dto.response.CompanyRes;
 
@@ -21,4 +22,6 @@ public interface ICompanyService {
     boolean updateCompanyJobId(long companyId, long jobId,boolean isAdd);
 
     boolean updateCompanyReviewId(long companyId, long reviewId, boolean isAdd);
+
+    void updateCompanyRating(ReviewMessage reviewMessage);
 }
