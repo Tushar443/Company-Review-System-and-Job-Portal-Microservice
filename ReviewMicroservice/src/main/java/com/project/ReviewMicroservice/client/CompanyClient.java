@@ -13,9 +13,6 @@ public interface CompanyClient {
     @GetMapping("/company/{id}")
     CompanyRes getCompanyById(@PathVariable("id") Long id);
 
-    @GetMapping("/company/reviews")
+    @GetMapping("/company/getReviewsByCompanyId")
     CompanyRes getCompanyByIdForReviews(@RequestParam(name = "companyId") long companyId);
-
-    @PutMapping("/company/updateReviews")
-    boolean updateCompanyReviewId(@RequestParam long companyId, @RequestParam long reviewId,@RequestParam boolean isAdd);
 }

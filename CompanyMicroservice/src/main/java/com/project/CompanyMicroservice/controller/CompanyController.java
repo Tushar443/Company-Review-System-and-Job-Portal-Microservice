@@ -38,7 +38,7 @@ public class CompanyController {
         return null;
     }
 
-    @GetMapping("reviews")
+    @GetMapping("getReviewsByCompanyId")
     public CompanyRes getCompanyByIdForReviews(@RequestParam(name = "companyId") long companyId){
         return companyService.getCompanyByIdForReviews(companyId);
     }
