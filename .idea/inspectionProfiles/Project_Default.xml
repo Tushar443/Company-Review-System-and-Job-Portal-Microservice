@@ -7,16 +7,19 @@
         <list>
           <option value="spring-cloud-gateway" />
           <option value="spring-cloud-gateway" />
+          <option value="eureka-server" />
         </list>
       </option>
       <option name="ignoredPackages">
         <list>
           <option value="com.fasterxml.woodstox:woodstox-core:6.2.1" />
           <option value="com.google.guava:guava:19.0" />
+          <option value="com.google.guava:guava:19.0" />
         </list>
       </option>
       <option name="ignoredReasons">
         <list>
+          <option value="Not exploitable" />
           <option value="Not exploitable" />
           <option value="Not exploitable" />
         </list>
