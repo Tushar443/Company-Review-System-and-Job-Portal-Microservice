@@ -1,4 +1,4 @@
-package com.project.ReviewMicroservice.messaging;
+package com.project.JobMicroservice.messaging;
 
 
 import org.springframework.amqp.core.Binding;
@@ -14,13 +14,13 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class RabbitMQConfig {
-    @Value("${rabbitmq.queue.reviewName}")
+    @Value("${rabbitmq.queue.jobName}")
     private String queueName;
 
-    @Value("${rabbitmq.exchange.reviewName}")
+    @Value("${rabbitmq.exchange.jobName}")
     private String exchangeName;
 
-    @Value("${rabbitmq.routing.reviewKey}")
+    @Value("${rabbitmq.routing.jobKey}")
     private String routingKey;
 
     @Bean

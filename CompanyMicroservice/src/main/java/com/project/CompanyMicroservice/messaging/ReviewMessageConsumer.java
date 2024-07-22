@@ -9,9 +9,6 @@ import org.springframework.stereotype.Service;
 @Service
 public class ReviewMessageConsumer {
 
-    @Value("${rabbitmq.queue.name}")
-    private String queueName;
-
     private final CompanyServiceImpl companyService;
 
 
@@ -19,8 +16,8 @@ public class ReviewMessageConsumer {
         this.companyService = companyService;
     }
 
-    @RabbitListener(queues ="${rabbitmq.queue.name}")
-    public void consumeMessage(ReviewMessage reviewMessage){
+    @RabbitListener(queues ="${rabbitmq.queue.reviewName}")
+    public void consumeReviewMessage(ReviewMessage reviewMessage){
         if (Operations.ADD.equals(reviewMessage.getOperation())){
             companyService.updateCompanyRating(reviewMessage);
         }else if (Operations.DELETE.equals(reviewMessage.getOperation())){

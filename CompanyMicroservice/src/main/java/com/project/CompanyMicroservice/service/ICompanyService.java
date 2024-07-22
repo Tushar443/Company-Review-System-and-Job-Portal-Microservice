@@ -1,5 +1,6 @@
 package com.project.CompanyMicroservice.service;
 
+import com.project.CompanyMicroservice.dto.RabbitMQ.JobMessage;
 import com.project.CompanyMicroservice.dto.RabbitMQ.ReviewMessage;
 import com.project.CompanyMicroservice.dto.request.CompanyReq;
 import com.project.CompanyMicroservice.dto.response.CompanyRes;
@@ -22,4 +23,8 @@ public interface ICompanyService {
     void updateCompanyRating(ReviewMessage reviewMessage);
 
     void deleteReviewId(ReviewMessage reviewMessage);
+
+    void updateJobByCompanyId(JobMessage jobMessage);
+
+    void deleteJobId(JobMessage jobMessage);
 }

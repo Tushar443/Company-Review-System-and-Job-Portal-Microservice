@@ -3,6 +3,7 @@ package com.project.CompanyMicroservice.service;
 import com.project.CompanyMicroservice.beans.Company;
 import com.project.CompanyMicroservice.client.JobClient;
 import com.project.CompanyMicroservice.client.ReviewClient;
+import com.project.CompanyMicroservice.dto.RabbitMQ.JobMessage;
 import com.project.CompanyMicroservice.dto.RabbitMQ.ReviewMessage;
 import com.project.CompanyMicroservice.dto.request.CompanyReq;
 import com.project.CompanyMicroservice.dto.request.JobReq;
@@ -166,6 +167,31 @@ public class CompanyServiceImpl implements ICompanyService {
             if (optionalCompany.isPresent()) {
                 Company company = optionalCompany.get();
                 company.getReviewsId().removeIf(dbReview -> dbReview == reviewMessage.getId());
+                companyRepo.save(company);
+            }
+        }
+    }
+
+    @Override
+    public void updateJobByCompanyId(JobMessage jobMessage) {
+        if (jobMessage.getCompanyId() != null && jobMessage.getCompanyId() > 0) {
+            Optional<Company> optionalCompany = Optional.ofNullable(companyRepo.findById(jobMessage.getCompanyId())
+                    .orElseThrow(() -> new NotFoundException("Company is Not Found with Id =" + jobMessage.getCompanyId())));
+            if (optionalCompany.isPresent()) {
+                Company company = optionalCompany.get();
+                company.getJobsId().add(jobMessage.getJobId());
+                companyRepo.save(company);
+            }
+        }
+    }
+
+    @Override
+    public void deleteJobId(JobMessage jobMessage) {
+        if(jobMessage != null) {
+            Optional<Company> optionalCompany = Optional.ofNullable(companyRepo.findById(jobMessage.getCompanyId()).orElseThrow(() -> new NotFoundException("Company is Not Found with Id =" + jobMessage.getCompanyId())));
+            if (optionalCompany.isPresent()) {
+                Company company = optionalCompany.get();
+                company.getJobsId().removeIf(dbJob-> dbJob == jobMessage.getJobId());
                 companyRepo.save(company);
             }
         }

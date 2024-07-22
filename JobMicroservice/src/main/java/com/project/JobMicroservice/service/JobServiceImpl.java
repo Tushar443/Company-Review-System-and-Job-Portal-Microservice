@@ -3,13 +3,13 @@ package com.project.JobMicroservice.service;
 import com.project.JobMicroservice.beans.Job;
 import com.project.JobMicroservice.client.CompanyClient;
 import com.project.JobMicroservice.client.ReviewClient;
-import com.project.JobMicroservice.dto.request.CompanyReq;
 import com.project.JobMicroservice.dto.request.JobReq;
-import com.project.JobMicroservice.dto.request.ReviewReq;
 import com.project.JobMicroservice.dto.response.CompanyRes;
 import com.project.JobMicroservice.dto.response.JobRes;
 import com.project.JobMicroservice.dto.response.ReviewRes;
+import com.project.JobMicroservice.messaging.JobMessageProducer;
 import com.project.JobMicroservice.repository.JobRepo;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.BeanUtils;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -27,10 +27,13 @@ public class JobServiceImpl implements IJobService{
 
     ReviewClient reviewClient;
 
-    public JobServiceImpl(JobRepo jobRepo , CompanyClient companyClient,ReviewClient reviewClient) {
+    private final JobMessageProducer jobMessageProducer;
+
+    public JobServiceImpl(JobRepo jobRepo , CompanyClient companyClient, ReviewClient reviewClient, JobMessageProducer jobMessageProducer) {
         this.jobRepo = jobRepo;
         this.companyClient=companyClient;
         this.reviewClient=reviewClient;
+        this.jobMessageProducer = jobMessageProducer;
     }
 
     @Override
@@ -54,7 +57,7 @@ public class JobServiceImpl implements IJobService{
         if(companyRes != null) {
             BeanUtils.copyProperties(jobReq, job);
             Job saveJob = jobRepo.save(job);
-            companyClient.updateCompanyJobId(saveJob.getCompanyId(),saveJob.getId(),true);
+            jobMessageProducer.addJobToCompany(saveJob);
             return saveJob.getId();
         }
         return null;
@@ -90,8 +93,9 @@ public class JobServiceImpl implements IJobService{
             Job oldJob = job.get();
             CompanyRes companyRes = companyClient.getCompanyById(oldJob.getCompanyId());
             if(companyRes !=  null) {
+                jobMessageProducer.deleteJobFromCompany(oldJob);
                 jobRepo.delete(oldJob);
-                return companyClient.updateCompanyJobId(oldJob.getCompanyId(), oldJob.getId(),false);
+                return true;
             }
         }
         return false;

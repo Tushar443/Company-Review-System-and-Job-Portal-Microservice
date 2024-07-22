@@ -10,13 +10,13 @@ import org.springframework.stereotype.Service;
 @Service
 public class ReviewMessageProducer {
 
-    @Value("${rabbitmq.queue.name}")
+    @Value("${rabbitmq.queue.reviewName}")
     private String queueName;
 
-    @Value("${rabbitmq.exchange.name}")
+    @Value("${rabbitmq.exchange.reviewName}")
     private String exchangeName;
 
-    @Value("${rabbitmq.routing.key}")
+    @Value("${rabbitmq.routing.reviewKey}")
     private String routingKey;
 
     private final RabbitTemplate rabbitTemplate;
