@@ -2,10 +2,9 @@ package com.project.CompanyMicroservice.dto.RabbitMQ;
 
 public class ReviewMessage {
     private long id;
-    private String title;
-    private String description;
     private double rating;
     private Long companyId;
+    private String operation;
 
     public long getId() {
         return id;
@@ -13,22 +12,6 @@ public class ReviewMessage {
 
     public void setId(long id) {
         this.id = id;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
     }
 
     public double getRating() {
@@ -45,5 +28,13 @@ public class ReviewMessage {
 
     public void setCompanyId(Long companyId) {
         this.companyId = companyId;
+    }
+
+    public String getOperation() {
+        return operation;
+    }
+
+    public void setOperation(String operation) {
+        this.operation = operation;
     }
 }

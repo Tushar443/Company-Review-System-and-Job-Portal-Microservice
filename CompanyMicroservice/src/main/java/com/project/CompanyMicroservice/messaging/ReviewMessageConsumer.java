@@ -21,6 +21,10 @@ public class ReviewMessageConsumer {
 
     @RabbitListener(queues ="${rabbitmq.queue.name}")
     public void consumeMessage(ReviewMessage reviewMessage){
-        companyService.updateCompanyRating(reviewMessage);
+        if (Operations.ADD.equals(reviewMessage.getOperation())){
+            companyService.updateCompanyRating(reviewMessage);
+        }else if (Operations.DELETE.equals(reviewMessage.getOperation())){
+            companyService.deleteReviewId(reviewMessage);
+        }
     }
 }

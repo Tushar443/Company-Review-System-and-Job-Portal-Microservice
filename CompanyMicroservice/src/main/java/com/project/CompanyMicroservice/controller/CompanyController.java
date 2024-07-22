@@ -57,16 +57,6 @@ public class CompanyController {
        return companyService.updateCompany(id,companyReq);
     }
 
-    @PutMapping("/updateJobs")
-    boolean updateCompanyJobId(@RequestParam long companyId, @RequestParam long jobId , @RequestParam boolean isAdd){
-       return companyService.updateCompanyJobId(companyId,jobId,isAdd);
-    }
-
-    @PutMapping("/updateReviews")
-    boolean updateCompanyReviewId(@RequestParam long companyId, @RequestParam long reviewId, @RequestParam boolean isAdd){
-        return companyService.updateCompanyReviewId(companyId,reviewId,isAdd);
-    }
-
     //delete
     @DeleteMapping("{id}")
     public ResponseEntity<String> deleteById(@PathVariable long id){

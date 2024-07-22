@@ -45,14 +45,14 @@ public class CompanyServiceImpl implements ICompanyService {
         return companyResList;
     }
 
-    private CompanyRes getCompanyResObject(Company company){
+    private CompanyRes getCompanyResObject(Company company) {
         CompanyRes companyRes = new CompanyRes();
         BeanUtils.copyProperties(company, companyRes);
-        for(Long jobId : company.getJobsId()){
+        for (Long jobId : company.getJobsId()) {
             JobRes body = jobClient.getJobById(jobId).getBody();
             companyRes.getJobs().add(body);
         }
-        for(Long reviewId : company.getReviewsId()){
+        for (Long reviewId : company.getReviewsId()) {
             ReviewRes reviewRes = reviewClient.getReviewById(reviewId).getBody();
             companyRes.getReviews().add(reviewRes);
         }
@@ -75,9 +75,9 @@ public class CompanyServiceImpl implements ICompanyService {
                 saveCompany.getJobsId().add(body);
             }
             // call review microservice
-            for(ReviewReq reviewReq: companyReq.getReviews()){
-               Long reviewId = reviewClient.addReview(saveCompany.getId(), reviewReq).getBody();
-               saveCompany.getReviewsId().add(reviewId);
+            for (ReviewReq reviewReq : companyReq.getReviews()) {
+                Long reviewId = reviewClient.addReview(saveCompany.getId(), reviewReq).getBody();
+                saveCompany.getReviewsId().add(reviewId);
             }
             companyRepo.save(saveCompany);
             flag = true;
@@ -104,7 +104,7 @@ public class CompanyServiceImpl implements ICompanyService {
         CompanyRes companyRes = new CompanyRes();
         if (company.isPresent()) {
             Company entity = company.get();
-            BeanUtils.copyProperties(entity,companyRes);
+            BeanUtils.copyProperties(entity, companyRes);
         }
         return companyRes;
     }
@@ -130,10 +130,10 @@ public class CompanyServiceImpl implements ICompanyService {
         Optional<Company> opCompany = companyRepo.findById(id);
         if (opCompany.isPresent()) {
             Company company = opCompany.get();
-            for(Long reviewId : company.getReviewsId()){
-               boolean isDeletedReview = reviewClient.deleteReviewById(reviewId);
+            for (Long reviewId : company.getReviewsId()) {
+                boolean isDeletedReview = reviewClient.deleteReviewById(reviewId);
             }
-            for(Long jobId: company.getJobsId()){
+            for (Long jobId : company.getJobsId()) {
                 boolean isDeletedJob = jobClient.deleteJobById(jobId);
             }
             companyRepo.delete(company);
@@ -143,50 +143,32 @@ public class CompanyServiceImpl implements ICompanyService {
     }
 
     @Override
-    public boolean updateCompanyJobId(long companyId, long jobId,boolean isAdd) {
-        Optional<Company> optionalCompany = companyRepo.findById(companyId);
-        if(optionalCompany.isPresent()){
-            Company company = optionalCompany.get();
-            if(isAdd){
-                company.getJobsId().add(jobId);
-            }else {
-                company.getJobsId().removeIf(dbJob -> dbJob == jobId);
-            }companyRepo.save(company);
-            return true;
-        }
-        return false;
-    }
-
-    @Override
-    public boolean updateCompanyReviewId(long companyId, long reviewId,boolean isAdd) {
-//        Optional<Company> optionalCompany = companyRepo.findById(companyId);
-//        if(optionalCompany.isPresent()){
-//            Company company = optionalCompany.get();
-//            if(isAdd){
-//                company.getReviewsId().add(reviewId);
-//            }else {
-//                company.getReviewsId().removeIf(dbReview -> dbReview == reviewId);
-//            }
-//            companyRepo.save(company);
-//            return true;
-//        }
-        return false;
-    }
-
-    @Override
     public void updateCompanyRating(ReviewMessage reviewMessage) {
-        System.out.println(reviewMessage.getDescription() +" id "+reviewMessage.getId() +" "+ reviewMessage.getCompanyId());
+        System.out.println(" id " + reviewMessage.getId() + " " + reviewMessage.getCompanyId());
         Double average = reviewClient.getAverageRating(reviewMessage.getCompanyId());
         Double newAverage = (reviewMessage.getRating() + average) / 2;
         System.out.println(newAverage);
-        if(reviewMessage.getCompanyId() != null && reviewMessage.getCompanyId() > 0) {
+        if (reviewMessage.getCompanyId() != null && reviewMessage.getCompanyId() > 0) {
             Optional<Company> optionalCompany = Optional.ofNullable(companyRepo.findById(reviewMessage.getCompanyId()).orElseThrow(() -> new NotFoundException("Company is Not Found with Id =" + reviewMessage.getCompanyId())));
             if (optionalCompany.isPresent()) {
                 Company company = optionalCompany.get();
                 company.getReviewsId().add(reviewMessage.getId());
-            company.setCompanyRating(newAverage);
+                company.setCompanyRating(newAverage);
                 companyRepo.save(company);
             }
         }
     }
+
+    @Override
+    public void deleteReviewId(ReviewMessage reviewMessage) {
+        if(reviewMessage != null) {
+            Optional<Company> optionalCompany = companyRepo.findById(reviewMessage.getCompanyId());
+            if (optionalCompany.isPresent()) {
+                Company company = optionalCompany.get();
+                company.getReviewsId().removeIf(dbReview -> dbReview == reviewMessage.getId());
+                companyRepo.save(company);
+            }
+        }
+    }
+
 }

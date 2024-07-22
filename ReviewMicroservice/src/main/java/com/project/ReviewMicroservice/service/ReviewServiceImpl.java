@@ -62,7 +62,7 @@ public class ReviewServiceImpl implements IReviewService {
             BeanUtils.copyProperties(reviewReq, review);
             review.setCompanyId(companyId);
             Review save = reviewRepo.save(review);
-            reviewMessageProducer.sendMessage(save);
+            reviewMessageProducer.addReviewToCompany(save);
             return save.getId();
     }
 
@@ -84,9 +84,9 @@ public class ReviewServiceImpl implements IReviewService {
         Optional<Review> optionalReview = reviewRepo.findById(reviewId);
         if (optionalReview.isPresent()) {
             Review review = optionalReview.get();
-            boolean isDeleted = companyClient.updateCompanyReviewId(review.getCompanyId(),reviewId,false);
+            reviewMessageProducer.deleteReviewFromCompany(review);
             reviewRepo.delete(review);
-            return isDeleted;
+            return true;
         }
         return false;
     }
