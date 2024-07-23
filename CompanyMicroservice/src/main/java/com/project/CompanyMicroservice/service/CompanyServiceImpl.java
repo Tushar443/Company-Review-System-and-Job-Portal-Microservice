@@ -49,14 +49,14 @@ public class CompanyServiceImpl implements ICompanyService {
     private CompanyRes getCompanyResObject(Company company) {
         CompanyRes companyRes = new CompanyRes();
         BeanUtils.copyProperties(company, companyRes);
-        for (Long jobId : company.getJobsId()) {
-            JobRes body = jobClient.getJobById(jobId).getBody();
-            companyRes.getJobs().add(body);
-        }
-        for (Long reviewId : company.getReviewsId()) {
-            ReviewRes reviewRes = reviewClient.getReviewById(reviewId).getBody();
-            companyRes.getReviews().add(reviewRes);
-        }
+//        for (Long jobId : company.getJobsId()) {
+//            JobRes body = jobClient.getJobById(jobId).getBody();
+//            companyRes.getJobs().add(body);
+//        }
+//        for (Long reviewId : company.getReviewsId()) {
+//            ReviewRes reviewRes = reviewClient.getReviewById(reviewId).getBody();
+//            companyRes.getReviews().add(reviewRes);
+//        }
         return companyRes;
     }
 

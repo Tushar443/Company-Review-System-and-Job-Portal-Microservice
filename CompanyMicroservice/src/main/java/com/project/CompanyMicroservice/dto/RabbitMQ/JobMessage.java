@@ -28,4 +28,10 @@ public class JobMessage {
     public void setOperation(String operation) {
         this.operation = operation;
     }
+
+    @Override
+    public String toString() {
+        System.out.println("job id = "+jobId + " company id = "+ companyId);
+        return super.toString();
+    }
 }

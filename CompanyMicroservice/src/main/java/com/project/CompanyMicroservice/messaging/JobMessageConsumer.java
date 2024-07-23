@@ -19,6 +19,7 @@ public class JobMessageConsumer {
 
     @RabbitListener(queues ="${rabbitmq.queue.jobName}")
     public void consumeJobMessage(JobMessage jobMessage){
+        System.out.println(jobMessage);
         if (Operations.ADD.equals(jobMessage.getOperation())){
             companyService.updateJobByCompanyId(jobMessage);
         }else if (Operations.DELETE.equals(jobMessage.getOperation())){

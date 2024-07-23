@@ -28,14 +28,16 @@ public class JobMessageProducer {
     public void addJobToCompany(Job job){
         JobMessage jobMessage = new JobMessage();
         jobMessage.setOperation(Operations.ADD);
-        BeanUtils.copyProperties(job,jobMessage);
+        jobMessage.setCompanyId(job.getCompanyId());
+        jobMessage.setJobId(job.getId());
         rabbitTemplate.convertAndSend(exchangeName,routingKey,jobMessage);
     }
 
     public void deleteJobFromCompany(Job job) {
         JobMessage jobMessage = new JobMessage();
         jobMessage.setOperation(Operations.DELETE);
-        BeanUtils.copyProperties(job,jobMessage);
+        jobMessage.setCompanyId(job.getCompanyId());
+        jobMessage.setJobId(job.getId());
         rabbitTemplate.convertAndSend(exchangeName,routingKey,jobMessage);
     }
 }
