@@ -30,7 +30,7 @@ public class CompanyController {
     }
     //get company By Id
     @GetMapping("{id}")
-    public CompanyRes getCompanyById(@PathVariable long id){
+    public CompanyRes getCompanyById(@PathVariable(required = true) long id){
         CompanyRes companyRes = companyService.getCompanyById(id);
         if(companyRes.getName() != null){
             return companyRes;
@@ -39,7 +39,7 @@ public class CompanyController {
     }
 
     @GetMapping("getReviewsByCompanyId")
-    public CompanyRes getCompanyByIdForReviews(@RequestParam(name = "companyId") long companyId){
+    public CompanyRes getCompanyByIdForReviews(@RequestParam(name = "companyId",defaultValue = "0") long companyId){
         return companyService.getCompanyByIdForReviews(companyId);
     }
     //add
