@@ -3,6 +3,10 @@
 ## ER Diagram
 ![ER_diagram.png](ER_diagram.png)
 
+## Tables In Each Microservices
+![Tables_In_Each_Microservieces.png](Tables_In_Each_Microservieces.png)
+
+
 ## Project Structure
 ### Job Microservice (Port 8081)
 
