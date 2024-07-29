@@ -1,5 +1,8 @@
 # Company-Review-System-and-Job-Portal-Microservice
 
+## ER Diagram
+![ER_diagram.png](ER_diagram.png)
+
 ## Project Structure
 ### Job Microservice (Port 8081)
 
