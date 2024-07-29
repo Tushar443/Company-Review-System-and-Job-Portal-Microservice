@@ -32,7 +32,8 @@
 - Acts as a single entry point for all client requests.
 - Routes requests to the appropriate microservice.
 - Handles load balancing, authentication, and security.
-- Spring Cloud Config Server (Port 8888)
+
+### Spring Cloud Config Server (Port 8888)
 
 - Centralized configuration management for all microservices.
 - Stores configuration files for all environments.
