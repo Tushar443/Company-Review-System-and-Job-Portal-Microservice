@@ -7,7 +7,7 @@
 - Interacts with the Company Microservice to get company details for job listings.
 - Routes:
   - /jobs - CRUD operations for jobs.
-  -/jobs/{id} - Get, update, delete a specific job.
+  - /jobs/{id} - Get, update, delete a specific job.
 - Database tables: Job, JobDetails.
 
 ### Company Microservice (Port 8082)
@@ -15,8 +15,8 @@
 - Manages company-related data and operations.
 - Provides company details for jobs and reviews.
 - Routes:
-  -/companies - CRUD operations for companies.
-  -/companies/{id} - Get, update, delete a specific company.
+  - /companies - CRUD operations for companies.
+  - /companies/{id} - Get, update, delete a specific company.
 - Database tables: Company, CompanyDetails.
 
 ### Review Microservice (Port 8083)
