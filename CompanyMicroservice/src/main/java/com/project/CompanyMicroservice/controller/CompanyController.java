@@ -3,11 +3,19 @@ package com.project.CompanyMicroservice.controller;
 import com.project.CompanyMicroservice.dto.request.CompanyReq;
 import com.project.CompanyMicroservice.dto.response.CompanyRes;
 import com.project.CompanyMicroservice.service.ICompanyService;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.ws.rs.Consumes;
+import jakarta.ws.rs.Produces;
+import org.springframework.http.HttpRequest;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+
+import static jakarta.ws.rs.core.MediaType.APPLICATION_JSON;
+import static jakarta.ws.rs.core.MediaType.APPLICATION_XML;
 
 @RestController
 @RequestMapping("/company/")
@@ -39,6 +47,8 @@ public class CompanyController {
     }
 
     @GetMapping("getReviewsByCompanyId")
+//    @Produces({APPLICATION_XML,APPLICATION_JSON})
+//    @Consumes({APPLICATION_XML,APPLICATION_JSON})
     public CompanyRes getCompanyByIdForReviews(@RequestParam(name = "companyId",defaultValue = "0") long companyId){
         return companyService.getCompanyByIdForReviews(companyId);
     }
