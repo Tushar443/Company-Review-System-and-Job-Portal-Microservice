@@ -48,7 +48,7 @@
 - Distributed tracing system to monitor and troubleshoot microservice interactions.
 - Collects and displays tracing data.
 
-### PostgreSQL Server (Port 5432)
+### PostgresSQL Server (Port 5432)
 
 - Primary relational database for storing persistent data.
 - Database for all microservices.
