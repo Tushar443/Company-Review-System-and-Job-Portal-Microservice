@@ -12,8 +12,12 @@ import com.project.CompanyMicroservice.dto.response.CompanyRes;
 import com.project.CompanyMicroservice.dto.response.JobRes;
 import com.project.CompanyMicroservice.dto.response.ReviewRes;
 import com.project.CompanyMicroservice.repository.CompanyRepo;
+import jakarta.annotation.PostConstruct;
+import jakarta.annotation.PreDestroy;
 import jakarta.ws.rs.NotFoundException;
 import org.springframework.beans.BeanUtils;
+import org.springframework.beans.BeansException;
+import org.springframework.beans.factory.config.BeanPostProcessor;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -21,7 +25,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class CompanyServiceImpl implements ICompanyService {
+public class CompanyServiceImpl implements ICompanyService , BeanPostProcessor {
 
     CompanyRepo companyRepo;
 
@@ -30,9 +34,32 @@ public class CompanyServiceImpl implements ICompanyService {
     ReviewClient reviewClient;
 
     public CompanyServiceImpl(CompanyRepo companyRepo, JobClient jobClient, ReviewClient reviewClient) {
+        System.out.println("Company Service constructor");
         this.companyRepo = companyRepo;
         this.jobClient = jobClient;
         this.reviewClient = reviewClient;
+    }
+
+    @PostConstruct
+    public void init() throws Exception{
+        System.out.println("Company Service Bean init method()");
+    }
+
+    @PreDestroy
+    public void destory() throws Exception{
+        System.out.println("Company Service Bean Destroy method()");
+    }
+
+    @Override
+    public Object postProcessAfterInitialization(Object bean, String beanName) throws BeansException {
+        System.out.println("postProcess After Initialization");
+        return bean;
+    }
+
+    @Override
+    public Object postProcessBeforeInitialization(Object bean, String beanName) throws BeansException {
+        System.out.println("postProcess Before Initialization");
+        return bean;
     }
 
     @Override
