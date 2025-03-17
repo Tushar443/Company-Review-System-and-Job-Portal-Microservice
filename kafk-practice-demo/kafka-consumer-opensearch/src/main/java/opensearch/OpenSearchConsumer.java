@@ -1,5 +1,6 @@
 package opensearch;
 
+import com.google.gson.JsonParser;
 import org.apache.http.HttpHost;
 import org.apache.http.auth.AuthScope;
 import org.apache.http.auth.UsernamePasswordCredentials;
@@ -59,9 +60,15 @@ public class OpenSearchConsumer {
                 logger.info("Recevied "+ recordCount + " record(s)");
                 for (ConsumerRecord<String,String> record : records){
                     try{
+                        //strategy 1
+                        // define id using kafka Record Coordinate
+//                        String id = record.topic() +"_"+ record.partition() +"_"+ record.offset();
+                        // strategy 2
+                        String id = extracId(record.value());
                         //send the record into OpenSearch
                         IndexRequest indexRequest = new IndexRequest("wikimedia")
-                                .source(record.value(), XContentType.JSON);
+                                .source(record.value(), XContentType.JSON)
+                                .id(id);
                         IndexResponse response = openSearchClient.index(indexRequest, RequestOptions.DEFAULT);
                         logger.info("Response Id = "+response.getId());
                     } catch (Exception e) {
@@ -70,11 +77,16 @@ public class OpenSearchConsumer {
                 }
             }
         }
-
-
-        // main code logic
-
         // close things
+    }
+
+    private static String extracId(String json) {
+        return JsonParser.parseString(json)
+                .getAsJsonObject()
+                .get("meta")
+                .getAsJsonObject()
+                .get("id")
+                .getAsString();
     }
 
     private static KafkaConsumer<String, String> createKafkaConsumer() {
