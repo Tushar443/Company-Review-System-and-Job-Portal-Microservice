@@ -7,10 +7,13 @@ import org.apache.http.auth.UsernamePasswordCredentials;
 import org.apache.http.client.CredentialsProvider;
 import org.apache.http.impl.client.BasicCredentialsProvider;
 import org.apache.http.impl.client.DefaultConnectionKeepAliveStrategy;
+import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.apache.kafka.clients.consumer.ConsumerRecords;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
 import org.apache.kafka.common.serialization.StringDeserializer;
+import org.opensearch.action.bulk.BulkRequest;
+import org.opensearch.action.bulk.BulkResponse;
 import org.opensearch.action.index.IndexRequest;
 import org.opensearch.action.index.IndexResponse;
 import org.opensearch.client.RequestOptions;
@@ -40,7 +43,6 @@ public class OpenSearchConsumer {
         // create our Kafka Client
         KafkaConsumer<String,String> consumer = createKafkaConsumer();
 
-
         // we need to create the index on OpenSearch i it doesn't exist already
         try(openSearchClient;consumer){
             boolean indexExist = openSearchClient.indices().exists(new GetIndexRequest("wikimedia"),RequestOptions.DEFAULT);
@@ -58,6 +60,10 @@ public class OpenSearchConsumer {
 
                 int recordCount = records.count();
                 logger.info("Recevied "+ recordCount + " record(s)");
+
+                // create bulk request
+                BulkRequest bulkRequest = new BulkRequest();
+
                 for (ConsumerRecord<String,String> record : records){
                     try{
                         //strategy 1
@@ -69,11 +75,29 @@ public class OpenSearchConsumer {
                         IndexRequest indexRequest = new IndexRequest("wikimedia")
                                 .source(record.value(), XContentType.JSON)
                                 .id(id);
-                        IndexResponse response = openSearchClient.index(indexRequest, RequestOptions.DEFAULT);
-                        logger.info("Response Id = "+response.getId());
+                        //IndexResponse response = openSearchClient.index(indexRequest, RequestOptions.DEFAULT);
+
+                        bulkRequest.add(indexRequest); // adding each request in bulk
+
+                        //logger.info("Response Id = "+response.getId());
                     } catch (Exception e) {
 
                     }
+                }
+
+                if(bulkRequest.numberOfActions() > 0) {
+                    // send bulk request at once not for each record like what we did on line 77
+                    BulkResponse response = openSearchClient.bulk(bulkRequest, RequestOptions.DEFAULT);
+                    logger.info("Inserted = "+response.getItems().length+ " records");
+                    try{
+                        Thread.sleep(1000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+
+                    // commit offset after the batch is consumed
+                    consumer.commitAsync();
+                    log.info("Offset have been committed");
                 }
             }
         }
@@ -95,13 +119,14 @@ public class OpenSearchConsumer {
         //create producer properties
         Properties properties = new Properties();
         //connect to localhost
-        properties.setProperty("bootstrap.servers","127.0.0.1:9092");
+        properties.setProperty(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG,"127.0.0.1:9092");
 
         //set producer properties
-        properties.setProperty("key.deserializer", StringDeserializer.class.getName());
-        properties.setProperty("value.deserializer",StringDeserializer.class.getName());
-        properties.setProperty("group.id",groupId);
-        properties.setProperty("auto.offset.reset","latest");
+        properties.setProperty(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class.getName());
+        properties.setProperty(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG,StringDeserializer.class.getName());
+        properties.setProperty(ConsumerConfig.GROUP_ID_CONFIG,groupId);
+        properties.setProperty(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG,"latest");
+        properties.setProperty(ConsumerConfig.ENABLE_AUTO_COMMIT_CONFIG,"false");
 
         //create consumer
         return new KafkaConsumer<>(properties);
